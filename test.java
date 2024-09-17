@@ -1,5 +1,7 @@
 public class test {
     public static void main(String[] args) {
-        Frage frage = new Frage(1, "Wie geht es dir?", new String[]{"Gut", "Schlecht", "Mittel"});
+        Antwort antwort = new Antwort(1, "Gut");
+        Frage frage = new Frage(1, "Wie geht es dir?", new Antwort[]{antwort});
+        
     }
 }
