@@ -1,0 +1,145 @@
+@startuml
+class EnlingoApp {
+    +{static}main(String[] args): void
+}
+
+package mainMenu {
+class MainMenuControl {
+    -view: MainMenuView
+    +showMainMenu(): void
+    +navigateToQuizGame(): void
+    +navigateToWordleGame(): void
+    +navigateToQuestionManager(): void
+}
+
+class MainMenuView {
+    -components: List<JComponent>
+    +displayMainMenu(): void
+}
+}
+
+
+package quizGame {
+class QuizGameModel {
+    -questions: List<Question>
+    +loadQuestions()
+    +getNextQuestion(): Question
+    +checkAnswer(question: Question, answer: String): boolean
+}
+
+class QuizGameView {
+    -components: List<JComponent>
+    +displayQuestion(question: Question)
+    +showResult(isCorrect: boolean)
+}
+
+class QuizGameController {
+    - model: QuizGameModel
+    - view: QuizGameView
+    +startGame()
+    +nextQuestion()
+    +submitAnswer(answer: String)
+}
+}
+
+package wordleGame {
+class WordleGameModel {
+    -targetWord: String
+    +generateWord()
+    +validateGuess(guess: String): List<Character>
+}
+
+class WordleGameView {
+    -components: List<JComponent>
+    +displayGame()
+    +showGuessResult(List<Character>)
+}
+
+class WordleGameController {
+    - model: WordleGameModel
+    - view: WordleGameView
+    +startGame()
+    +submitGuess(guess: String)
+}
+}
+
+package questionManager {
+class QuestionManagerController {
+    - model: QuestionManagerModel
+    - view: QuestionManagerView
+    +addQuestion(question: Question)
+    +removeQuestion(questionId: int)
+    +getAllQuestions(): List<Question>
+}
+
+class QuestionManagerView {
+    -components: List<JComponent>
+    +displayQuestionList(List<Question>)
+    +showAddQuestionForm()
+    +showRemoveConfirmation()
+}
+
+class QuestionManagerModel {
+    -questions: List<Question>
+    +addQuestion(question: Question)
+    +removeQuestion(questionId: int)
+    +getAllQuestions(): List<Question>
+}
+}
+
+package database <<Database>> {
+class DatabaseManager {
+    +{static}fileLocation: String
+    +{static}addQuestion(question: Question)
+    +{static}removeQuestion(questionId: int)
+    +{static}getAllQuestions(): List<Question>
+    +{static}getRandomQuestion(): Question
+}
+
+entity QuestionsDB <<database>>  {
+    ~questions: Table<Question>
+}
+}
+
+package shared {
+class Question {
+    -id: int
+    -text: String
+    -correctAnswer: String
+    +getId(): int
+    +getText(): String
+    +getCorrectAnswer(): String
+    +toString(): String
+}
+}
+
+EnlingoApp --> MainMenuControl: <<entry point>>
+MainMenuControl --> MainMenuView
+MainMenuControl <..> QuizGameController
+MainMenuControl <..> WordleGameController
+MainMenuControl <..> QuestionManagerController
+
+QuizGameController --> QuizGameView
+QuizGameController --> QuizGameModel
+QuizGameModel ..> DatabaseManager
+QuizGameView --> Question
+QuizGameModel --> Question
+
+WordleGameController --> WordleGameView
+WordleGameController --> WordleGameModel
+WordleGameModel ..> DatabaseManager
+WordleGameModel --> Question
+
+QuestionManagerController --> QuestionManagerView
+QuestionManagerController --> QuestionManagerModel
+QuestionManagerModel ..> DatabaseManager
+QuestionManagerView --> Question
+QuestionManagerModel --> Question
+
+DatabaseManager --> Question
+DatabaseManager ..> QuestionsDB : manages >
+QuestionsDB o--> Question : 0..*
+
+
+
+@enduml
