@@ -5,7 +5,6 @@ class EnlingoApp {
 
 package mainMenu {
 class MainMenuControl {
-    -view: MainMenuView
     +showMainMenu(): void
     +navigateToQuizGame(): void
     +navigateToWordleGame(): void
@@ -21,7 +20,6 @@ class MainMenuView {
 
 package quizGame {
 class QuizGameModel {
-    -questions: List<Question>
     +loadQuestions()
     +getNextQuestion(): Question
     +checkAnswer(question: Question, answer: String): boolean
@@ -34,8 +32,7 @@ class QuizGameView {
 }
 
 class QuizGameController {
-    - model: QuizGameModel
-    - view: QuizGameView
+
     +startGame()
     +nextQuestion()
     +submitAnswer(answer: String)
@@ -56,8 +53,6 @@ class WordleGameView {
 }
 
 class WordleGameController {
-    - model: WordleGameModel
-    - view: WordleGameView
     +startGame()
     +submitGuess(guess: String)
 }
@@ -65,8 +60,6 @@ class WordleGameController {
 
 package questionManager {
 class QuestionManagerController {
-    - model: QuestionManagerModel
-    - view: QuestionManagerView
     +addQuestion(question: Question)
     +removeQuestion(questionId: int)
     +getAllQuestions(): List<Question>
@@ -80,7 +73,6 @@ class QuestionManagerView {
 }
 
 class QuestionManagerModel {
-    -questions: List<Question>
     +addQuestion(question: Question)
     +removeQuestion(questionId: int)
     +getAllQuestions(): List<Question>
@@ -114,29 +106,29 @@ class Question {
 }
 
 EnlingoApp --> MainMenuControl: <<entry point>>
-MainMenuControl --> MainMenuView
-MainMenuControl <..> QuizGameController
-MainMenuControl <..> WordleGameController
-MainMenuControl <..> QuestionManagerController
+MainMenuControl "1" --> "-view" MainMenuView
+MainMenuControl <..> QuizGameController : <navigate>
+MainMenuControl <..> WordleGameController : <navigate>
+MainMenuControl <..> QuestionManagerController : <navigate>
 
-QuizGameController --> QuizGameView
-QuizGameController --> QuizGameModel
+QuizGameController "1" --> "-view" QuizGameView
+QuizGameController "1" --> "-model" QuizGameModel
 QuizGameModel ..> DatabaseManager
-QuizGameView --> Question
-QuizGameModel --> Question
+QuizGameView ..> Question
+QuizGameModel --> Question : \-questions 0..*
 
-WordleGameController --> WordleGameView
-WordleGameController --> WordleGameModel
+WordleGameController "1" --> "-view" WordleGameView
+WordleGameController "1" --> "-model" WordleGameModel
 WordleGameModel ..> DatabaseManager
 WordleGameModel --> Question
 
-QuestionManagerController --> QuestionManagerView
-QuestionManagerController --> QuestionManagerModel
+QuestionManagerController "1" --> "-view" QuestionManagerView
+QuestionManagerController "1" --> "-model" QuestionManagerModel
 QuestionManagerModel ..> DatabaseManager
-QuestionManagerView --> Question
-QuestionManagerModel --> Question
+QuestionManagerView ..> Question
+QuestionManagerModel --> Question: \-questions 0..*
 
-DatabaseManager --> Question
+DatabaseManager ..> Question
 DatabaseManager ..> QuestionsDB : manages >
 QuestionsDB o--> Question : 0..*
 
