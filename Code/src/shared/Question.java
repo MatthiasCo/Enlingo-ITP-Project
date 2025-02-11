@@ -35,4 +35,9 @@ public class Question<T> {
     public boolean isMultiAnswer() {
         return multiAnswer;
     }
+
+    @Override
+    public String toString() {
+        return id + "," + text + "," + answers;
+    }
 }
