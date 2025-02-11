@@ -13,7 +13,7 @@ public class DatabaseManager {
     // Adds a question to the CSV file
     public void addQuestion(Question question) {
         try (FileWriter writer = new FileWriter(this.fileLocation)) {
-            writer.append(question.getId() + "," + question.getText() + "," + question.getCorrectAnswer() + "\n");
+            writer.append(question.toString());
         } catch (IOException e) {
             System.err.println("Error writing to file: " + e.getMessage());
         }
@@ -25,7 +25,7 @@ public class DatabaseManager {
         try (FileWriter writer = new FileWriter(fileLocation)) {
             for (Question question : allQuestions) {
                 if (question.getId() != questionId) {
-                    writer.append(question.getId() + "," + question.getText() + "," + question.getCorrectAnswer() + "\n");
+                    writer.append(question.toString());
                 }
             }
         } catch (IOException e) {
@@ -61,38 +61,5 @@ public class DatabaseManager {
         }
         Random random = new Random();
         return questions.get(random.nextInt(questions.size()));
-    }
-}
-
-class Question {
-    private int id;
-    private String text;
-    private String correctAnswer;
-
-    public Question(int id, String text, String correctAnswer) {
-        this.id = id;
-        this.text = text;
-        this.correctAnswer = correctAnswer;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public String getCorrectAnswer() {
-        return correctAnswer;
-    }
-
-    @Override
-    public String toString() {
-        return "Question{" +
-                "id=" + id +
-                ", text='" + text + '\'' +
-                ", correctAnswer='" + correctAnswer + '\'' +
-                '}';
     }
 }
