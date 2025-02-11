@@ -25,6 +25,8 @@ public class WordleGameView {
         frame.setVisible(true);
 
         frame.setVisible(true);
+
+
     }
 
     private void welcomeView(){

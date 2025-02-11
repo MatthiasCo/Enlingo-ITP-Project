@@ -11,6 +11,7 @@ public class WordleGameController {
     public WordleGameController(WordleGameModel model, WordleGameView view) {
         this.model = model;
         this.view = view;
+
     }
 
     public void ActionPerformed(ActionEvent e) {

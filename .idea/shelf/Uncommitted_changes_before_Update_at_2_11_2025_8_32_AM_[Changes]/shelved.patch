@@ -1,0 +1,133 @@
+Index: Code/src/shared/Question.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package shared;\r\n\r\npublic class Question {\r\n    private int id;\r\n    private String text;\r\n    private int answer; //make generic\r\n\r\n    public Question(int id, String text, int answer) {\r\n        this.id = id;\r\n        this.text = text;\r\n        this.answer = answer;\r\n    }\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Code/src/shared/Question.java b/Code/src/shared/Question.java
+--- a/Code/src/shared/Question.java	(revision c8cc803e1a5128f173ee448e8b0d38460db1179f)
++++ b/Code/src/shared/Question.java	(date 1739258538332)
+@@ -11,5 +11,19 @@
+         this.answer = answer;
+     }
+ 
++    public int getId() {
++        return id;
++    }
++    public String getText() {
++        return text;
++    }
++    public int getAnswer() {
++        return answer;
++    }
++
++    public String toString() {
++        return id + "," + text + "," + answer "\n";
++    }
++
+ 
+ }
+Index: .idea/Enlingo-ITP-Project.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/Enlingo-ITP-Project.iml b/.idea/Enlingo-ITP-Project.iml
+new file mode 100644
+--- /dev/null	(date 1736237828190)
++++ b/.idea/Enlingo-ITP-Project.iml	(date 1736237828190)
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<module type="JAVA_MODULE" version="4">
++  <component name="NewModuleRootManager" inherit-compiler-output="true">
++    <exclude-output />
++    <content url="file://$MODULE_DIR$" />
++    <orderEntry type="inheritedJdk" />
++    <orderEntry type="sourceFolder" forTests="false" />
++  </component>
++</module>
+\ No newline at end of file
+Index: .idea/modules.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/modules.xml b/.idea/modules.xml
+new file mode 100644
+--- /dev/null	(date 1736237828174)
++++ b/.idea/modules.xml	(date 1736237828174)
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="ProjectModuleManager">
++    <modules>
++      <module fileurl="file://$PROJECT_DIR$/.idea/Enlingo-ITP-Project.iml" filepath="$PROJECT_DIR$/.idea/Enlingo-ITP-Project.iml" />
++      <module fileurl="file://$PROJECT_DIR$/Wordle/Wordle.iml" filepath="$PROJECT_DIR$/Wordle/Wordle.iml" />
++    </modules>
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/vcs.xml b/.idea/vcs.xml
+new file mode 100644
+--- /dev/null	(date 1736237828200)
++++ b/.idea/vcs.xml	(date 1736237828200)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="VcsDirectoryMappings">
++    <mapping directory="" vcs="Git" />
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+new file mode 100644
+--- /dev/null	(date 1736237828190)
++++ b/.idea/misc.xml	(date 1736237828190)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_22" default="true" project-jdk-name="openjdk-22" project-jdk-type="JavaSDK">
++    <output url="file://$PROJECT_DIR$/out" />
++  </component>
++</project>
+\ No newline at end of file
+Index: .gitignore
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.gitignore b/.gitignore
+new file mode 100644
+--- /dev/null	(date 1736237828206)
++++ b/.gitignore	(date 1736237828206)
+@@ -0,0 +1,1 @@
++/non-code/Aktivitätsdiagramm/AktivitätsDiagramm_Enlingo.asta.lock
+Index: .idea/.gitignore
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/.gitignore b/.idea/.gitignore
+new file mode 100644
+--- /dev/null	(date 1736237828206)
++++ b/.idea/.gitignore	(date 1736237828206)
+@@ -0,0 +1,8 @@
++# Default ignored files
++/shelf/
++/workspace.xml
++# Editor-based HTTP Client requests
++/httpRequests/
++# Datasource local storage ignored files
++/dataSources/
++/dataSources.local.xml
