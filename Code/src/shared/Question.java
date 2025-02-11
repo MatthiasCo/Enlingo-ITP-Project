@@ -1,5 +1,8 @@
 package shared;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+
 public class Question<T> {
     private int id;
     private String text;
@@ -13,10 +16,12 @@ public class Question<T> {
         this.multiAnswer = true;
     }
 
-    public Question(int id, String text, T answer) {
+    public Question(int id, String text, T answer, Class<T> type) {
         this.id = id;
         this.text = text;
-        this.answers = (T[]) new Object[]{answer};
+        // Create a new array of type T
+        this.answers = (T[]) Array.newInstance(type, 1);
+        this.answers[0] = answer;
         this.multiAnswer = false;
     }
 
@@ -38,6 +43,7 @@ public class Question<T> {
 
     @Override
     public String toString() {
-        return id + "," + text + "," + answers;
+        return id + "," + text + "," + Arrays.toString(answers);
     }
+
 }
