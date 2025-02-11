@@ -9,13 +9,13 @@ public class DatabaseManager {
     private static String fileLocation = ".Datenbank_Enlingo.csv";
 
     public DatabaseManager() {
-        this.fileLocation = fileLocation;
+        fileLocation = fileLocation;
     }
 
     // Adds a question to the CSV file
     public void addQuestion(Question<String> question) {
-        try (FileWriter writer = new FileWriter(this.fileLocation, true)) {
-            writer.append(question.toString()).append("\n");
+        try (FileWriter writer = new FileWriter(fileLocation, true)) {
+            writer.append(question.toString()).append("\n---------------\n");
         } catch (IOException e) {
             System.err.println("Error writing to file: " + e.getMessage());
         }

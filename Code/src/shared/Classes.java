@@ -1,15 +1,14 @@
 package shared;
 
-
 @SuppressWarnings("unchecked")
-public class Classes<T> {
-    public final Class<T> STRING = (Class<T>) String.class;
-    public final Class<T> BOOLEAN = (Class<T>) Boolean.class;
-    public final Class<T> INTEGER = (Class<T>) Integer.class;
-    public final Class<T> DOUBLE = (Class<T>) Double.class;
-    public final Class<T> FLOAT = (Class<T>) Float.class;
-    public final Class<T> LONG = (Class<T>) Long.class;
-    public final Class<T> SHORT = (Class<T>) Short.class;
-    public final Class<T> BYTE = (Class<T>) Byte.class;
-    public final Class<T> CHARACTER = (Class<T>) Character.class;
+public class Classes {
+    public static final Class<String> STRING = String.class;
+    public static final Class<Boolean> BOOLEAN = Boolean.class;
+    public static final Class<Integer> INTEGER = Integer.class;
+    public static final Class<Double> DOUBLE = Double.class;
+    public static final Class<Float> FLOAT = Float.class;
+    public static final Class<Long> LONG = Long.class;
+    public static final Class<Short> SHORT = Short.class;
+    public static final Class<Byte> BYTE = Byte.class;
+    public static final Class<Character> CHARACTER = Character.class;
 }
