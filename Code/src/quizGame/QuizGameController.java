@@ -1,16 +1,24 @@
-package Code.src.quizGame;
+package quizGame;
 
-import quizGame.QuizGameModel;
-import quizGame.QuizGameView;
+import mainMenu.MainMenuControl;
 
 public class QuizGameController {
-    public QuizGameController(quizGame.QuizGameModel model, quizGame.QuizGameView view) {
-        this.model = model;
-        this.view = view;
+    private QuizGameModel model;
+    private QuizGameView view;
+    private MainMenuControl mainMenuControl;
+
+    public QuizGameController(MainMenuControl mainMenuControl) {
+        this.mainMenuControl = mainMenuControl;
+        this.model = new QuizGameModel();
+        this.view = new QuizGameView(this);
     }
 
-    quizGame.QuizGameModel model = new QuizGameModel();
-    quizGame.QuizGameView view = new QuizGameView();
-    QuizGameController controller = new QuizGameController(model, view);
+    public void display() {
+        view.setVisible(true);
+    }
 
+    public void navigateBack() {
+        view.setVisible(false);
+        mainMenuControl.showMainMenu();
+    }
 }

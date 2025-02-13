@@ -1,17 +1,20 @@
 package wordleGame;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-
+import mainMenu.MainMenuControl;
 
 public class WordleGameController {
-    private final WordleGameModel model;
-    private final WordleGameView view;
+    private WordleGameModel model;
+    private WordleGameView view;
+    private MainMenuControl mainMenuControl;
 
-    public WordleGameController(WordleGameModel model, WordleGameView view) {
-        this.model = model;
-        this.view = view;
+    public WordleGameController(MainMenuControl mainMenuControl) {
+        this.mainMenuControl = mainMenuControl;
+        this.model = new WordleGameModel();
+        this.view = new WordleGameView(this);
+    }
 
+    public void display() {
+        view.setVisible(true);
     }
 
     public void ActionPerformed(ActionEvent e) {
@@ -23,5 +26,9 @@ public class WordleGameController {
         WordleGameView view = new WordleGameView();
         WordleGameController controller = new WordleGameController(model, view);
     }
-}
 
+    public void navigateBack() {
+        view.setVisible(false);
+        mainMenuControl.showMainMenu();
+    }
+}
