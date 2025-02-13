@@ -1,12 +1,24 @@
 package wordleGame;
 
-public class wordleGameController {
+import mainMenu.MainMenuControl;
 
-}
-public static void main(String[] args) {
-    // TODO Auto-generated method stub
-    WordleGameModel model = new WordleGameModel();
-    WordleGameView view = new WordleGameView();
-    wordleGameController controller = new wordleGameController(model, view);
-    view.setVisible(true);
+public class WordleGameController {
+    private WordleGameModel model;
+    private WordleGameView view;
+    private MainMenuControl mainMenuControl;
+
+    public WordleGameController(MainMenuControl mainMenuControl) {
+        this.mainMenuControl = mainMenuControl;
+        this.model = new WordleGameModel();
+        this.view = new WordleGameView(this);
+    }
+
+    public void display() {
+        view.setVisible(true);
+    }
+
+    public void navigateBack() {
+        view.setVisible(false);
+        mainMenuControl.showMainMenu();
+    }
 }
