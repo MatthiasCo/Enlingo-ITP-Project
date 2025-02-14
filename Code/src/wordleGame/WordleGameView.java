@@ -3,68 +3,82 @@ import javax.swing.*;
 import java.awt.*;
 
 public class WordleGameView {
-    private JPanel mainPanel;
+    private JPanel containerPanel;
     private JFrame frame;
 
-    private JLabel welcomeMessage;
+    private String question;
+    private JLabel questionLabel;
+
+    private JLabel welcomeLabel;
     private JButton startButton;
 
     private WordleGameController controller;
     private JTextField[][] inputField;
     private JButton submitButton;
 
-    public WordleGameView() {
+    public WordleGameView(WordleGameController controller) {
         frame = new JFrame("Wordle Game");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 300);
 
-        mainPanel = new JPanel();
+        this.controller = controller;
+
+        containerPanel = new JPanel();
 
         welcomeView();
-        frame.add(mainPanel);
+        frame.add(containerPanel);
         frame.setVisible(true);
 
         frame.setVisible(true);
-
-
     }
 
-    private void welcomeView(){
-        JPanel welcomePanel = new JPanel();
+    public void welcomeView(){
+        containerPanel.setLayout(new BorderLayout()); // Set mainPanel layout to BorderLayout
 
+        JPanel welcomePanel = new JPanel();
         welcomePanel.setLayout(new BorderLayout());
 
-        JLabel welcomeLabel = new JLabel("Willkommen zu Wordle!");
-        JButton startButton = new JButton("Start");
+        this.welcomeLabel = new JLabel("Willkommen zu Wordle!", SwingConstants.CENTER); // Center the text
+        this.startButton = new JButton("Start");
 
         startButton.setActionCommand("start");
-        startButton.addActionListener();
+        startButton.addActionListener(controller);
 
         welcomePanel.add(welcomeLabel, BorderLayout.CENTER);
         welcomePanel.add(startButton, BorderLayout.SOUTH);
 
-        mainPanel.add(welcomePanel);
+        containerPanel.add(welcomePanel, BorderLayout.CENTER); // Add welcomePanel to mainPanel
     }
 
-    public void mainView(){
+    public void mainView(String question){
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
+
+        this.inputField = new JTextField[5][5];
+        if(question != null){
+            this.question = question;
+            JLabel questionLabel = new JLabel(this.question);
+            mainPanel.add(questionLabel, BorderLayout.NORTH);
+        }
+
 
         JPanel inputPanel = new JPanel();
         inputPanel.setLayout(new GridLayout(5, 5));
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
-                inputField[i][j] = new JTextField();
-                inputPanel.add(inputField[i][j]);
+                this.inputField[i][j] = new JTextField();
+                inputPanel.add(this.inputField[i][j]);
             }
         }
         mainPanel.add(inputPanel, BorderLayout.CENTER);
 
         submitButton = new JButton("Submit");
         submitButton.setActionCommand("submit");
-        submitButton.addActionListener();
+        submitButton.addActionListener(controller);
 
         mainPanel.add(submitButton, BorderLayout.SOUTH);
+
+        this.containerPanel.add(mainPanel);
     }
 
 }
