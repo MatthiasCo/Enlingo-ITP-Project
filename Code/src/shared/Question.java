@@ -44,6 +44,10 @@ public class Question<T> {
         return multiAnswer;
     }
 
+    public boolean isForWordle() {
+        return forWordle;
+    }
+
     @Override
     public String toString() {
         return "Question ID: " + id + "\n" +
