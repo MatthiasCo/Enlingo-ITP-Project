@@ -19,6 +19,10 @@ public class QuestionManagerView extends JFrame {
         backButton.addActionListener(e -> controller.navigateBack());
 
         add(backButton);
-        setResizable(false); // Make the window non-resizable
+        setResizable(false);
+    }
+
+    public void init() {
+        setVisible(true);
     }
 }
