@@ -166,10 +166,6 @@ public class WordleGameView {
         }
     }
 
-    public void show(boolean visible) {
-        frame.setVisible(visible);
-    }
-
     public String getCurrentGuess(int attempt) {
         StringBuilder guess = new StringBuilder();
         for (int j = 0; j < 5; j++) {

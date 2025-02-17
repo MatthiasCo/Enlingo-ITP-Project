@@ -53,7 +53,7 @@ public class WordleGameController implements ActionListener {
                 view.resetView();
                 attempt = 0;
         } else if (command.equals("home")) {
-            view.show(false);
+            this.view=null;
             mainMenuControl.show(true);
         }
     }
