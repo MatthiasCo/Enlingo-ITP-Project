@@ -6,16 +6,12 @@ import java.util.*;
 
 public class DatabaseManager {
 
-    private String fileLocation = "";
+    private static String fileLocation = "src/database/Datenbank_Enlingo.csv";
 
     public DatabaseManager() {
-        fileLocation = setFileLocation();
+        fileLocation = fileLocation;
     }
 
-    public String setFileLocation() {
-        String currentPath = System.getProperty("user.dir");
-        return currentPath + "Datenbank_Enlingo.csv";
-    }
 
     // Adds a question to the CSV file
     public void addQuestion(Question<String> question) {
@@ -72,5 +68,18 @@ public class DatabaseManager {
         }
         Random random = new Random();
         return questions.get(random.nextInt(questions.size()));
+    }
+
+    public Question<String> getRandomWordleQuestion(){
+        List<Question<String>> questions = getAllQuestions();
+        if (questions.isEmpty()) {
+            return null;
+        }
+        Random random = new Random();
+        Question<String> question = questions.get(random.nextInt(questions.size()));
+        while (!question.isForWordle()) {
+            question = questions.get(random.nextInt(questions.size()));
+        }
+        return question;
     }
 }
