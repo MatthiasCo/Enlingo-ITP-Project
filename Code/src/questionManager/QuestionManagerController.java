@@ -3,13 +3,15 @@ package questionManager;
 import mainMenu.MainMenuControl;
 
 public class QuestionManagerController {
-    QuestionManagerModel model;
-    QuestionManagerView view;
+    private MainMenuControl mainMenu;
 
-    public QuestionManagerController() {
+    private QuestionManagerModel model;
+    private QuestionManagerView view;
+
+    public QuestionManagerController(MainMenuControl mainMenu) {
         this.model = new QuestionManagerModel();
         this.view = new QuestionManagerView(this);
-
+        this.mainMenu = mainMenu;
     }
 
     public void display() {
@@ -17,8 +19,15 @@ public class QuestionManagerController {
     }
 
     public void navigateBack() {
-        MainMenuControl mainMenu = new MainMenuControl();
-        mainMenu.display();
+        mainMenu.show(true);
         view.setVisible(false);
+    }
+
+    public static void main(String[] args) {
+        //test
+        //MainMenuControl mainMenu = new MainMenuControl();
+        //QuestionManagerController questionManager = new QuestionManagerController();
+        //questionManager.display();
+
     }
 }

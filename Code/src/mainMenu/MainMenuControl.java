@@ -32,7 +32,7 @@ public class MainMenuControl {
     }
 
     public void navigateToQuestionManager() {
-        QuestionManagerController questionManager = new QuestionManagerController();
+        QuestionManagerController questionManager = new QuestionManagerController(this);
         questionManager.display();
         view.setVisible(false);
     }
@@ -44,8 +44,8 @@ public class MainMenuControl {
         view.display();
     }
 
-    public void setVisible (boolean b) {
-        this.setVisible(b);
+    public void show (boolean b) {
+        view.setVisible(b);
     }
 
     public void display() {

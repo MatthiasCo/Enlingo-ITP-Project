@@ -12,7 +12,7 @@ public class QuestionManagerView extends JFrame {
         setSize(960, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        setLayout(new GridLayout(1, 1)); // 1 row, 1 column
+        setLayout(new GridLayout(1, 1));
 
         JButton backButton = new JButton("Back");
         backButton.setHorizontalAlignment(SwingConstants.CENTER);
