@@ -20,21 +20,21 @@ public class MainMenuControl {
     }
 
     public void navigateToQuizGame() {
+        this.view.setVisible(false);
         QuizGameController quizGame = new QuizGameController();
         quizGame.display();
-        this.view = null;
     }
 
     public void navigateToWordleGame() {
+        this.view.setVisible(false);
         WordleGameController wordleGame = new WordleGameController(this);
-        this.view = null;
     }
 
 
     public void navigateToQuestionManager() {
+        this.view.setVisible(false);
         QuestionManagerController questionManager = new QuestionManagerController(this);
         questionManager.display();
-        this.view = null;
     }
 
     public static void main(String[] args) {
