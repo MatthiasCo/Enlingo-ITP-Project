@@ -1,3 +1,4 @@
+// QuizGameView.java
 package quizGame;
 
 import javax.swing.*;
@@ -6,7 +7,7 @@ import java.awt.*;
 public class QuizGameView extends JFrame {
     private QuizGameController controller;
 
-    public QuizGameView() {
+    public QuizGameView(QuizGameController controller) {
         this.controller = controller;
         setTitle("Quiz Game");
         setSize(960, 600);
