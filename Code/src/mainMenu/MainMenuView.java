@@ -1,6 +1,7 @@
 package mainMenu;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -10,10 +11,10 @@ public class MainMenuView extends JFrame {
     public MainMenuView() {
         this.control = control;
         setTitle("Main Menu");
-        setSize(300, 200);
+        setSize(500, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
+        setLayout(new GridLayout(4, 1));
 
         JButton quizGameButton = new JButton("Quiz Game");
         quizGameButton.addActionListener(new ActionListener() {
@@ -59,5 +60,9 @@ public class MainMenuView extends JFrame {
 
     public void setControl(MainMenuControl control) {
         this.control = control;
+    }
+
+    public void setVisible (boolean b) {
+        this.setVisible(b);
     }
 }
