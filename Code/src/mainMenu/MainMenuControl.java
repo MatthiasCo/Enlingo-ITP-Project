@@ -27,7 +27,6 @@ public class MainMenuControl {
 
     public void navigateToWordleGame() {
         WordleGameController wordleGame = new WordleGameController(this);
-        wordleGame.display();
         this.view = null;
     }
 
