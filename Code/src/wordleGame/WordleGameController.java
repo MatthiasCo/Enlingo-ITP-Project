@@ -57,9 +57,5 @@ public class WordleGameController implements ActionListener {
             mainMenuControl.show(true);
         }
     }
-
-
-    public void display() {
-    }
 }
 
