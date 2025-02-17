@@ -2,6 +2,8 @@ package mainMenu;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class MainMenuView extends JFrame {
     private MainMenuControl control;
@@ -9,37 +11,47 @@ public class MainMenuView extends JFrame {
     public MainMenuView() {
         this.control = control;
         setTitle("Main Menu");
-        setSize(960, 600);
+        setSize(500, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        setLayout(new GridLayout(4, 1)); // 4 rows, 1 column
+        setLayout(new GridLayout(4, 1));
 
         JButton quizGameButton = new JButton("Quiz Game");
-        quizGameButton.setHorizontalAlignment(SwingConstants.CENTER);
-        quizGameButton.addActionListener(e -> control.navigateToQuizGame());
+        quizGameButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                control.navigateToQuizGame();
+            }
+        });
 
         JButton wordleGameButton = new JButton("Wordle Game");
-        wordleGameButton.setHorizontalAlignment(SwingConstants.CENTER);
-        wordleGameButton.addActionListener(e -> control.navigateToWordleGame());
+        wordleGameButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                control.navigateToWordleGame();
+            }
+        });
 
         JButton questionManagerButton = new JButton("Question Manager");
-        questionManagerButton.setHorizontalAlignment(SwingConstants.CENTER);
-        questionManagerButton.addActionListener(e -> control.navigateToQuestionManager());
+        questionManagerButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                control.navigateToQuestionManager();
+            }
+        });
 
         JButton exitButton = new JButton("Exit");
-        exitButton.setHorizontalAlignment(SwingConstants.CENTER);
-        exitButton.addActionListener(e -> System.exit(0));
+        exitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
 
         add(quizGameButton);
         add(wordleGameButton);
         add(questionManagerButton);
         add(exitButton);
-
-        setResizable(false); // Make the window non-resizable
-    }
-
-    public void setControl(MainMenuControl control) {
-        this.control = control;
     }
 
     public void display() {
@@ -48,5 +60,9 @@ public class MainMenuView extends JFrame {
 
     public void setControl(MainMenuControl control) {
         this.control = control;
+    }
+
+    public void setVisible (boolean b) {
+        this.setVisible(b);
     }
 }
