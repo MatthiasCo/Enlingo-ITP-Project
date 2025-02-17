@@ -6,16 +6,21 @@ import java.util.*;
 
 public class DatabaseManager {
 
-    private static String fileLocation = ".Datenbank_Enlingo.csv";
+    private String fileLocation = "";
 
     public DatabaseManager() {
-        fileLocation = fileLocation;
+        fileLocation = setFileLocation();
+    }
+
+    public String setFileLocation() {
+        String currentPath = System.getProperty("user.dir");
+        return currentPath + "Datenbank_Enlingo.csv";
     }
 
     // Adds a question to the CSV file
     public void addQuestion(Question<String> question) {
         try (FileWriter writer = new FileWriter(fileLocation, true)) {
-            writer.append(question.toString()).append("\n---------------\n");
+            writer.append(question.csvConvert()).append("\n");
         } catch (IOException e) {
             System.err.println("Error writing to file: " + e.getMessage());
         }
@@ -46,7 +51,11 @@ public class DatabaseManager {
                     int id = Integer.parseInt(parts[0]);
                     String text = parts[1];
                     String[] answers = parts[2].replace("[", "").replace("]", "").split(";");
-                    questions.add(new Question<>(id, text, answers));
+                    if(answers.length == 1){
+                        questions.add(new Question<>(id, text, answers[0], String.class));
+                        } else {
+                            questions.add(new Question<>(id, text, answers));
+                        }
                 }
             }
         } catch (IOException e) {
