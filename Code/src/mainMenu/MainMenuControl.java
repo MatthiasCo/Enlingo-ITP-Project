@@ -22,20 +22,20 @@ public class MainMenuControl {
     public void navigateToQuizGame() {
         QuizGameController quizGame = new QuizGameController();
         quizGame.display();
-        view.setVisible(false);
+        this.view = null;
     }
 
     public void navigateToWordleGame() {
         WordleGameController wordleGame = new WordleGameController(this);
         wordleGame.display();
-        view.setVisible(false);
+        this.view = null;
     }
 
 
     public void navigateToQuestionManager() {
         QuestionManagerController questionManager = new QuestionManagerController(this);
         questionManager.display();
-        view.setVisible(false);
+        this.view = null;
     }
 
     public static void main(String[] args) {
@@ -45,10 +45,7 @@ public class MainMenuControl {
         view.display();
     }
 
-    public void show (boolean b) {
-        view.setVisible(b);
-    }
-
     public void display() {
+    this.view = new MainMenuView();
     }
 }
