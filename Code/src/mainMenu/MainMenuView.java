@@ -1,4 +1,4 @@
-package Code.src.mainMenu;
+package mainMenu;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 public class MainMenuView extends JFrame {
     private MainMenuControl control;
 
-    public MainMenuView(MainMenuControl control) {
+    public MainMenuView() {
         this.control = control;
         setTitle("Main Menu");
         setSize(300, 200);
@@ -55,5 +55,9 @@ public class MainMenuView extends JFrame {
 
     public void display() {
         setVisible(true);
+    }
+
+    public void setControl(MainMenuControl control) {
+        this.control = control;
     }
 }

@@ -66,5 +66,8 @@ public class WordleGameController implements ActionListener {
     public static void main(String[] args) {
         WordleGameController controller = new WordleGameController();
     }
+
+    public void display() {
+    }
 }
 

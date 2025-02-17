@@ -1,7 +1,6 @@
-package Code.src.questionManager;
+package questionManager;
 
-import questionManager.QuestionManagerModel;
-import questionManager.QuestionManagerView;
+import mainMenu.MainMenuControl;
 
 public class QuestionManagerController {
     public QuestionManagerController(QuestionManagerModel model, QuestionManagerView view) {
@@ -13,4 +12,9 @@ public class QuestionManagerController {
     questionManager.QuestionManagerView view = new QuestionManagerView();
     QuestionManagerController controller = new QuestionManagerController(model, view);
 
+    public QuestionManagerController() {
+    }
+
+    public void display() {
+    }
 }

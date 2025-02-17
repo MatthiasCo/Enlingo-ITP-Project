@@ -1,7 +1,6 @@
-package Code.src.quizGame;
+package quizGame;
 
-import quizGame.QuizGameModel;
-import quizGame.QuizGameView;
+import mainMenu.MainMenuControl;
 
 public class QuizGameController {
     public QuizGameController(quizGame.QuizGameModel model, quizGame.QuizGameView view) {
@@ -13,4 +12,9 @@ public class QuizGameController {
     quizGame.QuizGameView view = new QuizGameView();
     QuizGameController controller = new QuizGameController(model, view);
 
+    public QuizGameController() {
+    }
+
+    public void display() {
+    }
 }

@@ -1,4 +1,4 @@
-package Code.src.quizGame;
+package quizGame;
 
 public class QuizGameView {
 }

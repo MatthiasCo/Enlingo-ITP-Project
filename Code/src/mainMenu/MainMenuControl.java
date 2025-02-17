@@ -1,8 +1,8 @@
-package Code.src.mainMenu;
+package mainMenu;
 
-import Code.src.quizGame.*;
-import Code.src.wordleGame.*;
-import Code.src.questionManager.*;
+import quizGame.*;
+import wordleGame.*;
+import questionManager.*;
 
 public class MainMenuControl {
     private MainMenuView view;
@@ -20,20 +20,27 @@ public class MainMenuControl {
     }
 
     public void navigateToQuizGame() {
-        QuizGameController quizGame = new QuizGameController(this);
+        QuizGameController quizGame = new QuizGameController();
         quizGame.display();
         view.setVisible(false);
     }
 
     public void navigateToWordleGame() {
-        WordleGameController wordleGame = new WordleGameController(this);
+        WordleGameController wordleGame = new WordleGameController();
         wordleGame.display();
         view.setVisible(false);
     }
 
     public void navigateToQuestionManager() {
-        QuestionManagerController questionManager = new QuestionManagerController(this);
+        QuestionManagerController questionManager = new QuestionManagerController();
         questionManager.display();
         view.setVisible(false);
+    }
+
+    public static void main(String[] args) {
+        MainMenuView view = new MainMenuView();
+        MainMenuControl control = new MainMenuControl(view);
+        view.setControl(control);
+        view.display();
     }
 }
