@@ -61,8 +61,4 @@ public class MainMenuView extends JFrame {
     public void setControl(MainMenuControl control) {
         this.control = control;
     }
-
-    public void setVisible (boolean b) {
-        this.setVisible(b);
-    }
 }

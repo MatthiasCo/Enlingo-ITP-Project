@@ -7,8 +7,8 @@ import questionManager.*;
 public class MainMenuControl {
     private MainMenuView view;
 
-    public MainMenuControl(MainMenuView view) {
-        this.view = view;
+    public MainMenuControl () {
+        this.view = new MainMenuView();
     }
 
     public MainMenuView getView() {
@@ -39,8 +39,12 @@ public class MainMenuControl {
 
     public static void main(String[] args) {
         MainMenuView view = new MainMenuView();
-        MainMenuControl control = new MainMenuControl(view);
+        MainMenuControl control = new MainMenuControl();
         view.setControl(control);
         view.display();
+    }
+
+    public void setVisible (boolean b) {
+        this.setVisible(b);
     }
 }
