@@ -10,9 +10,7 @@ public class WordleGameModel {
 
     public WordleGameModel() {
         databaseManager = new DatabaseManager();
-        do {
-            question = databaseManager.getRandomQuestion();
-        } while (question == null||!question.isForWordle());
+        question = databaseManager.getRandomWordleQuestion();
         this.targetWord = question.getAnswers()[0].toString().toUpperCase();
     }
 

@@ -26,10 +26,11 @@ public class MainMenuControl {
     }
 
     public void navigateToWordleGame() {
-        WordleGameController wordleGame = new WordleGameController();
+        WordleGameController wordleGame = new WordleGameController(this);
         wordleGame.display();
         view.setVisible(false);
     }
+
 
     public void navigateToQuestionManager() {
         QuestionManagerController questionManager = new QuestionManagerController(this);
