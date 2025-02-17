@@ -20,29 +20,25 @@ public class MainMenuControl {
     }
 
     public void navigateToQuizGame() {
-        QuizGameController quizGame = new QuizGameController(this);
+        QuizGameController quizGame = new QuizGameController();
         quizGame.display();
         view.setVisible(false);
     }
 
     public void navigateToWordleGame() {
-        WordleGameController wordleGame = new WordleGameController(this);
+        WordleGameController wordleGame = new WordleGameController();
         wordleGame.display();
         view.setVisible(false);
     }
 
     public void navigateToQuestionManager() {
-        QuestionManagerController questionManager = new QuestionManagerController(this);
+        QuestionManagerController questionManager = new QuestionManagerController();
         questionManager.display();
         view.setVisible(false);
     }
 
-    public void showMainMenu() {
-        view.setVisible(true);
-    }
-
     public static void main(String[] args) {
-        MainMenuView view = new MainMenuView(new MainMenuControl(null));
+        MainMenuView view = new MainMenuView();
         MainMenuControl control = new MainMenuControl(view);
         view.setControl(control);
         view.display();

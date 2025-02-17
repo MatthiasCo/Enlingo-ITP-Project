@@ -3,22 +3,18 @@ package quizGame;
 import mainMenu.MainMenuControl;
 
 public class QuizGameController {
-    private QuizGameModel model;
-    private QuizGameView view;
-    private MainMenuControl mainMenuControl;
+    public QuizGameController(quizGame.QuizGameModel model, quizGame.QuizGameView view) {
+        this.model = model;
+        this.view = view;
+    }
 
-    public QuizGameController(MainMenuControl mainMenuControl) {
-        this.mainMenuControl = mainMenuControl;
-        this.model = new QuizGameModel();
-        this.view = new QuizGameView(this);
+    quizGame.QuizGameModel model = new QuizGameModel();
+    quizGame.QuizGameView view = new QuizGameView();
+    QuizGameController controller = new QuizGameController(model, view);
+
+    public QuizGameController() {
     }
 
     public void display() {
-        view.setVisible(true);
-    }
-
-    public void navigateBack() {
-        view.setVisible(false);
-        mainMenuControl.showMainMenu();
     }
 }

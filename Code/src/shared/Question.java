@@ -25,7 +25,7 @@ public class Question<T> {
         this.answers[0] = answer;
         this.multiAnswer = false;
         //is type is string and its 5 characters long
-        this.forWordle = type == Classes.STRING || answer.toString().length() == 5;
+        this.forWordle = type == Classes.STRING && answer.toString().length() == 5;
     }
 
     public int getId() {
@@ -42,6 +42,14 @@ public class Question<T> {
 
     public boolean isMultiAnswer() {
         return multiAnswer;
+    }
+
+    public boolean isForWordle() {
+        return forWordle;
+    }
+
+    public String csvConvert() {
+        return id + "," + text + "," + Arrays.toString(answers);
     }
 
     @Override

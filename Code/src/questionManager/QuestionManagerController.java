@@ -3,22 +3,18 @@ package questionManager;
 import mainMenu.MainMenuControl;
 
 public class QuestionManagerController {
-    private QuestionManagerModel model;
-    private QuestionManagerView view;
-    private MainMenuControl mainMenuControl;
+    public QuestionManagerController(QuestionManagerModel model, QuestionManagerView view) {
+        this.model = model;
+        this.view = view;
+    }
 
-    public QuestionManagerController(MainMenuControl mainMenuControl) {
-        this.mainMenuControl = mainMenuControl;
-        this.model = new QuestionManagerModel();
-        this.view = new QuestionManagerView(this);
+    questionManager.QuestionManagerModel model = new QuestionManagerModel();
+    questionManager.QuestionManagerView view = new QuestionManagerView();
+    QuestionManagerController controller = new QuestionManagerController(model, view);
+
+    public QuestionManagerController() {
     }
 
     public void display() {
-        view.setVisible(true);
-    }
-
-    public void navigateBack() {
-        view.setVisible(false);
-        mainMenuControl.showMainMenu();
     }
 }

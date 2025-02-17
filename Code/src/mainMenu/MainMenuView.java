@@ -6,7 +6,7 @@ import java.awt.*;
 public class MainMenuView extends JFrame {
     private MainMenuControl control;
 
-    public MainMenuView(MainMenuControl control) {
+    public MainMenuView() {
         this.control = control;
         setTitle("Main Menu");
         setSize(960, 600);
@@ -44,5 +44,9 @@ public class MainMenuView extends JFrame {
 
     public void display() {
         setVisible(true);
+    }
+
+    public void setControl(MainMenuControl control) {
+        this.control = control;
     }
 }

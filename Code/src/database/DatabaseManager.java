@@ -6,16 +6,17 @@ import java.util.*;
 
 public class DatabaseManager {
 
-    private static String fileLocation = ".Datenbank_Enlingo.csv";
+    private static String fileLocation = "src/database/Datenbank_Enlingo.csv";
 
     public DatabaseManager() {
         fileLocation = fileLocation;
     }
 
+
     // Adds a question to the CSV file
     public void addQuestion(Question<String> question) {
         try (FileWriter writer = new FileWriter(fileLocation, true)) {
-            writer.append(question.toString()).append("\n---------------\n");
+            writer.append(question.csvConvert()).append("\n");
         } catch (IOException e) {
             System.err.println("Error writing to file: " + e.getMessage());
         }
@@ -46,7 +47,11 @@ public class DatabaseManager {
                     int id = Integer.parseInt(parts[0]);
                     String text = parts[1];
                     String[] answers = parts[2].replace("[", "").replace("]", "").split(";");
-                    questions.add(new Question<>(id, text, answers));
+                    if(answers.length == 1){
+                        questions.add(new Question<>(id, text, answers[0], String.class));
+                        } else {
+                            questions.add(new Question<>(id, text, answers));
+                        }
                 }
             }
         } catch (IOException e) {
@@ -63,5 +68,18 @@ public class DatabaseManager {
         }
         Random random = new Random();
         return questions.get(random.nextInt(questions.size()));
+    }
+
+    public Question<String> getRandomWordleQuestion(){
+        List<Question<String>> questions = getAllQuestions();
+        if (questions.isEmpty()) {
+            return null;
+        }
+        Random random = new Random();
+        Question<String> question = questions.get(random.nextInt(questions.size()));
+        while (!question.isForWordle()) {
+            question = questions.get(random.nextInt(questions.size()));
+        }
+        return question;
     }
 }
