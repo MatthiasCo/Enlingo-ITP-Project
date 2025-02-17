@@ -175,6 +175,7 @@ public class WordleGameView {
     }
     public void show(boolean show) {
         frame.setVisible(show);
+
     }
     public void setStatusMessage(String message) {
         statusLabel.setText(message);
