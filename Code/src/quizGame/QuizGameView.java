@@ -6,7 +6,7 @@ import java.awt.*;
 public class QuizGameView extends JFrame {
     private QuizGameController controller;
 
-    public QuizGameView(QuizGameController controller) {
+    public QuizGameView() {
         this.controller = controller;
         setTitle("Quiz Game");
         setSize(960, 600);

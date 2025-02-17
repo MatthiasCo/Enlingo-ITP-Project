@@ -17,4 +17,7 @@ public class QuizGameController {
 
     public void display() {
     }
+
+    public void navigateBack() {
+    }
 }

@@ -47,4 +47,7 @@ public class MainMenuControl {
     public void setVisible (boolean b) {
         this.setVisible(b);
     }
+
+    public void display() {
+    }
 }
