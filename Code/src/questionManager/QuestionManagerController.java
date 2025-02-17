@@ -19,7 +19,7 @@ public class QuestionManagerController {
     }
 
     public void navigateBack() {
-        mainMenu.show(true);
+        mainMenu.display();
         view.setVisible(false);
     }
 
