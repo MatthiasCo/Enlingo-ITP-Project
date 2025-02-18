@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 public class MainMenuView extends JFrame {
 
     public MainMenuView(MainMenuControl control) {
-        setTitle("Main Menu");
+        setTitle("shared.Enlingo Menu");
         setSize(500, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);

@@ -202,7 +202,10 @@ public class WordleGameView {
     }
 
     public void display(boolean show) {
-        frame.setVisible(show);
+        if (show){
+            this.welcomeView();
+        }
+        this.frame.setVisible(show);
     }
 
     // Set the status message

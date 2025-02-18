@@ -51,17 +51,13 @@ public class WordleGameController implements ActionListener {
                 view.resetView();
                 attempt = 0;
         } else if (command.equals("home")) {
-            display(false);
+            this.display(false);
             mainMenuControl.display(true);
         }
     }
 
     public void display (boolean show){
-        if (show){
-            view.welcomeView();
-        }
         view.display(show);
-
     }
 
     public JPanel topPanel(){

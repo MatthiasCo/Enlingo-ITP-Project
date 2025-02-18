@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 
 import mainMenu.MainMenuControl;
 
+
 public class TopBar extends JPanel implements ActionListener{
     private MainMenuControl mainMenuControl;
 
@@ -16,7 +17,7 @@ public class TopBar extends JPanel implements ActionListener{
             setBorder(BorderFactory.createMatteBorder(1, 0, 1, 0, Color.GRAY)); // Bottom border
 
             // Left-aligned label
-            JLabel titleLabel = new JLabel("Enlingo-Deine Englischlernplattform");
+            JLabel titleLabel = new JLabel("shared.Enlingo-Deine Englischlernplattform");
             titleLabel.setFont(new Font("Arial", Font.PLAIN, 14));
             titleLabel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 0));
 
@@ -43,6 +44,7 @@ public class TopBar extends JPanel implements ActionListener{
     }
     public void actionPerformed(ActionEvent e) {
         if ("home".equals(e.getActionCommand())) {
+            Enlingo.hideAllViews(this.mainMenuControl);
             this.mainMenuControl.display(true);
         }
     }
