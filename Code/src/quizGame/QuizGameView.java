@@ -1,5 +1,7 @@
 package quizGame;
 
+import shared.TopBar;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -11,24 +13,29 @@ public class QuizGameView extends JFrame {
     private JTextField answerField;
     private JButton homeButton;
     private String lastAnswer = "";
+    private JLabel nameLabel;
+    private JPanel topBar;
 
     public QuizGameView(QuizGameController controller) {
         this.controller = controller;
-        setTitle("Quiz Game");
         setSize(500, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
 
+        topBar = new TopBar();
+        add(topBar, BorderLayout.NORTH);
+
         // Question label in the center
         questionLabel = new JLabel("Question goes here", SwingConstants.CENTER);
-        questionLabel.setFont(new Font("Arial", Font.BOLD, 20));
-        add(questionLabel, BorderLayout.CENTER);
+        questionLabel.setFont(new Font("Arial", Font.PLAIN, 20));
 
         // Answer input field at the bottom
+        JPanel centerPanel = new JPanel(new BorderLayout());
         JPanel bottomPanel = new JPanel(new BorderLayout());
         answerField = new JTextField();
         answerField.setFont(new Font("Arial", Font.PLAIN, 18));
+        answerField.setPreferredSize(new Dimension(400, 60));
         answerField.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -43,14 +50,16 @@ public class QuizGameView extends JFrame {
         });
         bottomPanel.add(answerField, BorderLayout.CENTER);
 
-        // Home button at the bottom
-        homeButton = new JButton("Home");
-        homeButton.setHorizontalAlignment(SwingConstants.CENTER);
-        homeButton.addActionListener(e -> controller.navigateBack());
-        bottomPanel.add(homeButton, BorderLayout.SOUTH);
+        centerPanel.add(questionLabel, BorderLayout.CENTER);
+
+
+        nameLabel = new JLabel("Quiz Game", SwingConstants.CENTER);
+        nameLabel.setBorder(BorderFactory.createEmptyBorder(30, 0, 0, 0)); // Add padding to nameLabel
+        nameLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        centerPanel.add(nameLabel, BorderLayout.NORTH);
 
         add(bottomPanel, BorderLayout.SOUTH);
-
+        add(centerPanel, BorderLayout.CENTER);
         setResizable(false); // Make the window non-resizable
     }
 
@@ -60,6 +69,10 @@ public class QuizGameView extends JFrame {
 
     public void clearAnswerField() {
         answerField.setText("");
+    }
+
+    public JTextField getAnswerField() {
+        return answerField;
     }
 
     public void showResult(String result) {

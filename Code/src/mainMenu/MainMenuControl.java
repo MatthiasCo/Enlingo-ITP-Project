@@ -24,7 +24,7 @@ public class MainMenuControl {
 
     public void navigateToQuizGame() {
         this.view.setVisible(false);
-        QuizGameController quizGame = new QuizGameController();
+        QuizGameController quizGame = new QuizGameController(this);
         quizGame.display();
     }
 

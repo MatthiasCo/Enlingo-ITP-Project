@@ -1,23 +1,19 @@
 package quizGame;
 
 import mainMenu.MainMenuControl;
-import shared.Classes;
 import shared.Question;
-import database.DatabaseManager;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class QuizGameController {
+public class QuizGameController implements ActionListener {
     private QuizGameModel model;
     private QuizGameView view;
     private MainMenuControl mainMenuControl;
-    private DatabaseManager databaseManager;
-    private Question<String> currentQuestion;
-    private Question<String> lastQuestion;
 
-    public QuizGameController() {
+    public QuizGameController(MainMenuControl mainMenuControl) {
         this.model = new QuizGameModel();
         this.view = new QuizGameView(this);
         this.mainMenuControl = mainMenuControl;
-        this.databaseManager = new DatabaseManager(Classes.STRING);
     }
 
     public void display() {
@@ -25,31 +21,33 @@ public class QuizGameController {
         startQuiz();
     }
 
-    public void navigateBack() {
-        view.setVisible(false);
-        mainMenuControl.display();
-    }
-
     public void startQuiz() {
-        do {
-            currentQuestion = databaseManager.getRandomQuestion();
-        } while (currentQuestion != null && currentQuestion.equals(lastQuestion));
-
+        model.startQuiz();
+        Question<String> currentQuestion = model.getCurrentQuestion();
         if (currentQuestion != null) {
             view.displayQuestion(currentQuestion.getText());
-            lastQuestion = currentQuestion;
         } else {
             view.displayQuestion("No questions available.");
         }
     }
 
     public void checkAnswer(String answer) {
-        if (currentQuestion != null && currentQuestion.getAnswers()[0].equalsIgnoreCase(answer)) {
+        if (model.checkAnswer(answer)) {
             view.showResult("Correct!");
         } else {
-            view.showResult("Incorrect. The correct answer is: " + currentQuestion.getAnswers()[0]);
+            view.showResult("Incorrect. The correct answer is: " + model.getCorrectAnswer());
         }
         view.clearAnswerField();
         startQuiz();
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String command = e.getActionCommand();
+        switch (command) {
+            case "submit":
+                checkAnswer(view.getAnswerField().getText());
+                break;
+        }
     }
 }
