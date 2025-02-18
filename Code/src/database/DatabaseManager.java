@@ -56,7 +56,7 @@ public class DatabaseManager<T> {
                         System.out.println("Invalid parts array.");
                     }
                     String text = parts[1];
-                    String[] answers = parts[2].replace("[", "").replace("]", "").split(";");
+                    String[] answers = (parts[2].trim()).replace("[", "").replace("]", "").split(";");
 
                     T convertedAnswer = convertToType(answers[0]);
                     questions.add(new Question<>(id, text, convertedAnswer, type));
