@@ -12,6 +12,7 @@ public class QuestionManagerView extends JFrame {
     private DefaultListModel<Question<Object>> listModel;
     private JTextArea questionText;
     private JButton saveButton;
+    private JPanel topPanel;
     private QuestionManagerController controller;
 
     public QuestionManagerView(QuestionManagerController controller) {
@@ -45,16 +46,16 @@ public class QuestionManagerView extends JFrame {
         add(textScrollPane, BorderLayout.CENTER);
 
         saveButton = new JButton("Save");
-        saveButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Question<Object> selectedQuestion = questionList.getSelectedValue();
-                if (selectedQuestion != null) {
-                    selectedQuestion.setText(questionText.getText());
-                    controller.updateQuestion(selectedQuestion);
-                }
+        saveButton.addActionListener(e -> {
+            Question<Object> selectedQuestion = questionList.getSelectedValue();
+            if (selectedQuestion != null) {
+                selectedQuestion.setText(questionText.getText());
+                controller.updateQuestion(selectedQuestion);
             }
         });
+
+        topPanel = controller.topPanel();
+        add(topPanel, BorderLayout.NORTH);
         add(saveButton, BorderLayout.SOUTH);
         setVisible(true);
     }

@@ -2,7 +2,9 @@ package questionManager;
 
 import mainMenu.MainMenuControl;
 import shared.Question;
+import shared.TopBar;
 
+import javax.swing.JPanel;
 import java.util.List;
 
 public class QuestionManagerController {
@@ -32,8 +34,11 @@ public class QuestionManagerController {
         loadQuestions();
     }
 
-    public void navigateBack() {
-        mainMenu.display(true);
-        view.setVisible(false);
+    public void display() {
+        view.setVisible(true);
+    }
+
+    public JPanel topPanel(){
+        return (new TopBar(this.mainMenu));
     }
 }
