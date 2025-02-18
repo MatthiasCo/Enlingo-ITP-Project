@@ -36,7 +36,7 @@ public class MainMenuControl {
     public void navigateToQuestionManager() {
         this.view.setVisible(false);
         QuestionManagerController questionManager = new QuestionManagerController(this);
-        questionManager.display();
+        questionManager.display(true);
     }
 
     public static void main(String[] args) {

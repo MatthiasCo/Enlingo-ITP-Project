@@ -15,10 +15,11 @@ public class QuestionManagerController {
         this.view = new QuestionManagerView(this);
         this.mainMenu = mainMenu;
         loadQuestions();
+        view.init();
     }
 
-    public void display() {
-        view.init();
+    public void display(boolean b) {
+        view.setVisible(b);
     }
 
     public void loadQuestions() {
