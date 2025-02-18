@@ -48,7 +48,6 @@ public class DatabaseManager<T> {
                         String trimmed = parts[0].trim();
                         if (trimmed.matches("\\d+")) {  // Check if it's only digits
                             id = Integer.parseInt(trimmed);
-                            System.out.println("Parsed ID: " + id);
                         } else {
                             System.out.println("Invalid input: '" + trimmed + "'");
                         }
