@@ -3,6 +3,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.*;
 import mainMenu.*;
+import shared.TopBar;
+
 import javax.swing.*;
 
 
@@ -56,6 +58,10 @@ public class WordleGameController implements ActionListener {
 
     public void display (boolean show){
         view.display(show);
+    }
+
+    public JPanel topPanel(){
+        return (new TopBar(this.mainMenuControl));
     }
 }
 

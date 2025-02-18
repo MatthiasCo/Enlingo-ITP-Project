@@ -74,7 +74,7 @@ public class WordleGameView {
 
         buttonPanel.add(startButton);
 
-        JPanel topPanel = new TopBar();
+        topPanel = controller.topPanel();
 
         containerPanel.add(topPanel, BorderLayout.NORTH);
         containerPanel.add(welcomeLabel, BorderLayout.CENTER);
@@ -136,7 +136,7 @@ public class WordleGameView {
         restartButton.setPreferredSize(new Dimension(200, 25));
         buttonPanel.add(restartButton);
 
-        topPanel = new TopBar();
+        topPanel = controller.topPanel();
 
         containerPanel.add(buttonPanel, BorderLayout.SOUTH);
         containerPanel.add(topPanel, BorderLayout.NORTH);
