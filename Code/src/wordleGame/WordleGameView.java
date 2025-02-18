@@ -201,9 +201,8 @@ public class WordleGameView {
         return guess.toString();
     }
 
-    public void show(boolean show) {
+    public void display(boolean show) {
         frame.setVisible(show);
-
     }
 
     // Set the status message
