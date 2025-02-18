@@ -40,6 +40,21 @@ public class Question<T> {
         return answers;
     }
 
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public void setAnswers(T[] answers) {
+        if(answers == null) {
+            return;
+        }
+        this.multiAnswer = answers.length != 1;
+        if(answers.length == 1) {
+            this.forWordle = answers[0].toString().length() == 5;
+        }
+        this.answers = answers;
+    }
+
     public boolean isMultiAnswer() {
         return multiAnswer;
     }

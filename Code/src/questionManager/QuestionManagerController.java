@@ -1,6 +1,9 @@
 package questionManager;
 
 import mainMenu.MainMenuControl;
+import shared.Question;
+
+import java.util.List;
 
 public class QuestionManagerController {
     private MainMenuControl mainMenu;
@@ -12,10 +15,21 @@ public class QuestionManagerController {
         this.model = new QuestionManagerModel();
         this.view = new QuestionManagerView(this);
         this.mainMenu = mainMenu;
+        loadQuestions();
     }
 
     public void display() {
         view.init();
+    }
+
+    public void loadQuestions() {
+        //List<Question<String>> questions = model.getAllQuestions();
+        //view.setQuestions(questions);
+    }
+
+    public void updateQuestion(Question<String> question) {
+        //model.updateQuestion(question);
+        loadQuestions();
     }
 
     public void navigateBack() {
