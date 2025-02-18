@@ -36,11 +36,4 @@ public class QuestionManagerController {
         mainMenu.display();
         view.setVisible(false);
     }
-
-    public static void main(String[] args) {
-        //test
-        //MainMenuControl mainMenu = new MainMenuControl();
-        //QuestionManagerController questionManager = new QuestionManagerController();
-        //questionManager.display();
-    }
 }
