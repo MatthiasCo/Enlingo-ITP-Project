@@ -9,14 +9,17 @@ import javax.swing.*;
 
 public class MainMenuControl {
     private MainMenuView view;
+    QuizGameController quizGame;
+    WordleGameController wordleGame;
+    QuestionManagerController questionManager;
 
     public MainMenuControl() {
         this.view = new MainMenuView();
-        QuizGameController quizGame = new QuizGameController(this);
+        quizGame = new QuizGameController(this);
         quizGame.display(false);
-        WordleGameController wordleGame = new WordleGameController(this);
+        wordleGame = new WordleGameController(this);
         wordleGame.display(false);
-        QuestionManagerController questionManager = new QuestionManagerController(this);
+        questionManager = new QuestionManagerController(this);
         questionManager.display(false);
 
     }
@@ -31,19 +34,17 @@ public class MainMenuControl {
 
     public void navigateToQuizGame() {
         this.view.setVisible(false);
-        QuizGameController quizGame = new QuizGameController(this);
         quizGame.display(true);
         quizGame.startQuiz();
     }
 
     public void navigateToWordleGame() {
         this.view.setVisible(false);
-        WordleGameController wordleGame = new WordleGameController(this);
+        wordleGame.display(true);
     }
 
     public void navigateToQuestionManager() {
         this.view.setVisible(false);
-        QuestionManagerController questionManager = new QuestionManagerController(this);
         questionManager.display(true);
     }
 
