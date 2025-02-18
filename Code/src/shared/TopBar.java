@@ -12,7 +12,7 @@ public class TopBar extends JPanel implements ActionListener{
     public TopBar() {
         this.mainMenuControl = new MainMenuControl();
         setLayout(new BorderLayout());
-        setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.GRAY)); // Bottom border
+        setBorder(BorderFactory.createMatteBorder(1, 0, 1, 0, Color.GRAY)); // Bottom border
 
         // Left-aligned label
         JLabel titleLabel = new JLabel("Enlingo-Deine Englischlernplattform");
