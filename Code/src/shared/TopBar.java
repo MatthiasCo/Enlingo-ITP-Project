@@ -5,12 +5,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import mainMenu.MainMenuControl;
+import mainMenu.MainMenuView;
 
 public class TopBar extends JPanel implements ActionListener{
     private MainMenuControl mainMenuControl;
 
-    public TopBar() {
-        this.mainMenuControl = new MainMenuControl();
+    public TopBar(MainMenuControl control) {
+        this.mainMenuControl = control;
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createMatteBorder(1, 0, 1, 0, Color.GRAY)); // Bottom border
 
