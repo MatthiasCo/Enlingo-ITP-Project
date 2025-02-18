@@ -26,7 +26,6 @@ public class WordleGameView {
     private JTextField[][] inputField;
     private JButton submitButton;
     private JButton restartButton;
-    private JButton homeButton;
 
     public WordleGameView(WordleGameController controller) {
         frame = new JFrame("Wordle Game");
@@ -53,16 +52,8 @@ public class WordleGameView {
         buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 30)); // Center the button, with vertical gap
 
-        homeButton = new JButton("Home");
-        homeButton.setFont(new Font("Arial", Font.BOLD, 20)); // (Font Name, Style, Size)
-        homeButton.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40)); // (top, left, bottom, right)
-        homeButton.setActionCommand("home");
-        homeButton.addActionListener(controller);
-        buttonPanel.add(homeButton);
-
-        this.startButton = new JButton("Start");
-        startButton.setFont(new Font("Arial", Font.BOLD, 20)); // (Font Name, Style, Size)
-        startButton.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40)); // (top, left, bottom, right)
+        startButton = new JButton("Start");
+        startButton.setFont(new Font("Arial", Font.BOLD, 20));
         startButton.setActionCommand("start");
         startButton.addActionListener(controller);
 
