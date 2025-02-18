@@ -1,100 +1,50 @@
-﻿1, Was heißt Apfel auf Englisch?, Apple
-2, Was heißt Sonne auf Englisch?, Sun
-3, Was heißt Zebra auf Englisch?, Zebra
-4, Was heißt Wasser auf Englisch?, Water
-5, Was heißt Papier auf Englisch?, Paper
-6, Was heißt Wolke auf Englisch?, Cloud
-7, Was heißt Blume auf Englisch?, Flower
-8, Was heißt Glas auf Englisch?, Glass
-9, Was heißt Stuhl auf Englisch?, Chair
-10, Was heißt Baum auf Englisch?, Tree
-11, Was heißt Handy auf Englisch?, Phone
-12, Was heißt Tasche auf Englisch?, Bag
-13, Was heißt Lampe auf Englisch?, Lamp
-14, Was heißt Messer auf Englisch?, Knife
-15, Was heißt Feuer auf Englisch?, Fire
-16, Was heißt Boden auf Englisch?, Floor
-17, Was heißt Brief auf Englisch?, Letter
-18, Was heißt Pferd auf Englisch?, Horse
-19, Was heißt Löffel auf Englisch?, Spoon
-20, Was heißt Gabel auf Englisch?, Fork
-21, Was heißt Teller auf Englisch?, Plate
-22, Was heißt Sonne auf Englisch?, Sun
-23, Was heißt Licht auf Englisch?, Light
-24, Was heißt Nacht auf Englisch?, Night
-25, Was heißt Stern auf Englisch?, Star
-26, Was heißt Musik auf Englisch?, Music
-27, Was heißt Regen auf Englisch?, Rain
-28, Was heißt Stadt auf Englisch?, City
-29, Was heißt Markt auf Englisch?, Market
-30, Was heißt Küche auf Englisch?, Kitchen
-31, Was heißt Auto auf Englisch?, Car
-32, Was heißt Zebra auf Englisch?, Zebra
-33, Was heißt Herz auf Englisch?, Heart
-34, Was heißt Honig auf Englisch?, Honey
-35, Was heißt Motor auf Englisch?, Motor
-36, Was heißt Feder auf Englisch?, Feather
-37, Was heißt Kaffee auf Englisch?, Coffee
-38, Was heißt Sonne auf Englisch?, Sun
-39, Was heißt Blatt auf Englisch?, Leaf
-40, Was heißt Rock auf Englisch?, Skirt
-41, Was heißt Torte auf Englisch?, Cake
-42, Was heißt Blume auf Englisch?, Flower
-43, Was heißt Knopf auf Englisch?, Button
-44, Was heißt Tisch auf Englisch?, Table
-45, Was heißt Stuhl auf Englisch?, Chair
-46, Was heißt Hose auf Englisch?, Pants
-47, Was heißt Spiegel auf Englisch?, Mirror
-48, Was heißt Brille auf Englisch?, Glasses
-49, Was heißt Mund auf Englisch?, Mouth
-50, Was heißt Finger auf Englisch?, Finger
-51, Was heißt Zehen auf Englisch?, Toes
-52, Was heißt Apfel auf Englisch?, Apple
-53, Was heißt Banane auf Englisch?, Banana
-54, Was heißt Orange auf Englisch?, Orange
-55, Was heißt Kirsche auf Englisch?, Cherry
-56, Was heißt Birne auf Englisch?, Pear
-57, Was heißt Traube auf Englisch?, Grape
-58, Was heißt Melone auf Englisch?, Melon
-59, Was heißt Pfirsich auf Englisch?, Peach
-60, Was heißt Erdbeere auf Englisch?, Strawberry
-61, Was heißt Salat auf Englisch?, Salad
-62, Was heißt Nudeln auf Englisch?, Pasta
-63, Was heißt Käse auf Englisch?, Cheese
-64, Was heißt Butter auf Englisch?, Butter
-65, Was heißt Milch auf Englisch?, Milk
-66, Was heißt Ei auf Englisch?, Egg
-67, Was heißt Fisch auf Englisch?, Fish
-68, Was heißt Brot auf Englisch?, Bread
-69, Was heißt Suppe auf Englisch?, Soup
-70, Was heißt Zucker auf Englisch?, Sugar
-71, Was heißt Salz auf Englisch?, Salt
-72, Was heißt Pfeffer auf Englisch?, Pepper
-73, Was heißt Ofen auf Englisch?, Oven
-74, Was heißt Herd auf Englisch?, Stove
-75, Was heißt Pfanne auf Englisch?, Pan
-76, Was heißt Topf auf Englisch?, Pot
-77, Was heißt Flasche auf Englisch?, Bottle
-78, Was heißt Messer auf Englisch?, Knife
-79, Was heißt Feuer auf Englisch?, Fire
-80, Was heißt Rauch auf Englisch?, Smoke
-81, Was heißt Wind auf Englisch?, Wind
-82, Was heißt Sturm auf Englisch?, Storm
-83, Was heißt Schnee auf Englisch?, Snow
-84, Was heißt Hagel auf Englisch?, Hail
-85, Was heißt Eis auf Englisch?, Ice
-86, Was heißt Nebel auf Englisch?, Fog
-87, Was heißt Wald auf Englisch?, Forest
-88, Was heißt Wiese auf Englisch?, Meadow
-89, Was heißt See auf Englisch?, Lake
-90, Was heißt Meer auf Englisch?, Sea
-91, Was heißt Insel auf Englisch?, Island
-92, Was heißt Sonne auf Englisch?, Sun
-93, Was heißt Mond auf Englisch?, Moon
-94, Was heißt Stern auf Englisch?, Star
-95, Was heißt Uhr auf Englisch?, Clock
-96, Was heißt Glas auf Englisch?, Glass
-97, Was heißt Stein auf Englisch?, Stone
-98, Was heißt Sand auf Englisch?, Sand
-99, Was heißt Berg auf Englisch?, Mountain
-100, Was heißt Tal auf Englisch?, Valley
+﻿1,What is the English word for 'Apfel'?,Apple
+2,How many letters are in the word 'Sun'?,3
+3,Is 'Zebra' an animal?,true
+4,What is the first letter of 'Water'?,W
+5,What is the English word for 'Papier'?,Paper
+6,How many letters are in the word 'Cloud'?,5
+7,Is 'Flower' a plant?,true
+8,What is the first letter of 'Glass'?,G
+9,What is the English word for 'Stuhl'?,Chair
+10,How many letters are in the word 'Tree'?,4
+11,Is 'Phone' a device?,true
+12,What is the first letter of 'Bag'?,B
+13,What is the English word for 'Lampe'?,Lamp
+14,How many letters are in the word 'Knife'?,5
+15,Is 'Fire' hot?,true
+16,What is the first letter of 'Floor'?,F
+17,What is the English word for 'Brief'?,Letter
+18,How many letters are in the word 'Horse'?,5
+19,Is 'Spoon' a utensil?,true
+20,What is the first letter of 'Fork'?,F
+21,What is the English word for 'Teller'?,Plate
+22,How many letters are in the word 'Light'?,5
+23,Is 'Night' dark?,true
+24,What is the first letter of 'Star'?,S
+25,What is the English word for 'Musik'?,Music
+26,How many letters are in the word 'Rain'?,4
+27,Is 'City' a place?,true
+28,What is the first letter of 'Market'?,M
+29,What is the English word for 'Küche'?,Kitchen
+30,How many letters are in the word 'Car'?,3
+31,Is 'Heart' an organ?,true
+32,What is the first letter of 'Honey'?,H
+33,What is the English word for 'Motor'?,Motor
+34,How many letters are in the word 'Feather'?,7
+35,Is 'Coffee' a drink?,true
+36,What is the first letter of 'Leaf'?,L
+37,What is the English word for 'Rock'?,Skirt
+38,How many letters are in the word 'Cake'?,4
+39,Is 'Button' a fastener?,true
+40,What is the first letter of 'Table'?,T
+41,What is the English word for 'Hose'?,Pants
+42,How many letters are in the word 'Mirror'?,6
+43,Is 'Glasses' a pair of lenses?,true
+44,What is the first letter of 'Mouth'?,M
+45,What is the English word for 'Finger'?,Finger
+46,How many letters are in the word 'Toes'?,4
+47,Is 'Banana' a fruit?,true
+48,What is the first letter of 'Orange'?,O
+49,What is the English word for 'Kirsche'?,Cherry
+50,What is the English word for 'Birne'?,Pear;Fruit
