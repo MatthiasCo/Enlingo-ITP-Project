@@ -48,18 +48,13 @@ public class MainMenuControl {
         questionManager.display(true);
     }
 
-    public static void main(String[] args) {
-        // Set FlatLaf Dark theme
-        try {
-            UIManager.setLookAndFeel(new FlatDarkLaf());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        new MainMenuControl();
-    }
-
     public void display(boolean b) {
         this.view.display(b);
     }
 
+    public void hideAllViews() {
+        quizGame.display(false);
+        wordleGame.display(false);
+        questionManager.display(false);
+    }
 }
