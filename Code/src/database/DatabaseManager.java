@@ -92,35 +92,40 @@ public class DatabaseManager<T> {
         return question;
     }
 
-    private T convertToType(String value) {
-        try {
-            if (type == Byte.class && Byte.parseByte(value) == Double.parseDouble(value)) {
-                return type.cast(Byte.parseByte(value));
-            } else if (type == Short.class && Short.parseShort(value) == Double.parseDouble(value)) {
-                return type.cast(Short.parseShort(value));
-            } else if (type == Integer.class && Integer.parseInt(value) == Double.parseDouble(value)) {
-                return type.cast(Integer.parseInt(value));
-            } else if (type == Long.class && Long.parseLong(value) == Double.parseDouble(value)) {
-                return type.cast(Long.parseLong(value));
-            } else if (type == Float.class && Float.parseFloat(value) == Double.parseDouble(value)) {
-                return type.cast(Float.parseFloat(value));
-            } else if (type == Double.class) {
-                return type.cast(Double.parseDouble(value));
-            } else if (type == Boolean.class) {
-                if (value.equalsIgnoreCase("true") || value.equalsIgnoreCase("false")) {
-                    return type.cast(Boolean.parseBoolean(value));
+        public T convertToType(String value) {
+            Object smallestValue;
+            if (value.length() == 1 && !Character.isDigit(value.charAt(0))) {
+                smallestValue = value.charAt(0);
+            } else {
+                try {
+                    smallestValue = Byte.parseByte(value);
+                } catch (NumberFormatException e) {
+                    try {
+                        smallestValue = Short.parseShort(value);
+                    } catch (NumberFormatException ex) {
+                        try {
+                            smallestValue = Integer.parseInt(value);
+                        } catch (NumberFormatException ex2) {
+                            try {
+                                smallestValue = Long.parseLong(value);
+                            } catch (NumberFormatException ex3) {
+                                try {
+                                    smallestValue = Float.parseFloat(value);
+                                } catch (NumberFormatException ex4) {
+                                    try {
+                                        smallestValue = Double.parseDouble(value);
+                                    } catch (NumberFormatException ex5) {
+                                        smallestValue = value;
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
-            } else if (type == Character.class) {
-                if (value.length() == 1) {
-                    return type.cast(value.charAt(0));
-                }
-            } else if (type == String.class) {
-                return type.cast(value);
             }
-        } catch (NumberFormatException e) {
-            System.err.println("Error converting value: " + value + " to type: " + type.getSimpleName());
+            if (smallestValue.getClass().equals(type)) {
+                return type.cast(smallestValue);
+            }
             return null;
         }
-        return null;
-    }
 }
