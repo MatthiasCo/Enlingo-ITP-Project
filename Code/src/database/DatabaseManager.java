@@ -41,9 +41,20 @@ public class DatabaseManager<T> {
         try (BufferedReader reader = new BufferedReader(new FileReader(fileLocation))) {
             String line;
             while ((line = reader.readLine()) != null) {
+                int id = 0;
                 String[] parts = line.split(",");
                 if (parts.length == 3) {
-                    int id = Integer.parseInt(parts[0]);
+                    if (parts.length > 0 && parts[0] != null) {
+                        String trimmed = parts[0].trim();
+                        if (trimmed.matches("\\d+")) {  // Check if it's only digits
+                            id = Integer.parseInt(trimmed);
+                            System.out.println("Parsed ID: " + id);
+                        } else {
+                            System.out.println("Invalid input: '" + trimmed + "'");
+                        }
+                    } else {
+                        System.out.println("Invalid parts array.");
+                    }
                     String text = parts[1];
                     String[] answers = parts[2].replace("[", "").replace("]", "").split(";");
 
