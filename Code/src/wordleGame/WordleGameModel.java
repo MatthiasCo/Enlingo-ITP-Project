@@ -1,5 +1,6 @@
 package wordleGame;
 import database.DatabaseManager;
+import shared.Classes;
 import shared.Question;
 
 public class WordleGameModel {
@@ -9,7 +10,7 @@ public class WordleGameModel {
     private int attemptsleft = 5;
 
     public WordleGameModel() {
-        databaseManager = new DatabaseManager();
+        databaseManager = new DatabaseManager(Classes.STRING);
         question = databaseManager.getRandomWordleQuestion();
         this.targetWord = question.getAnswers()[0].toString().toUpperCase();
     }

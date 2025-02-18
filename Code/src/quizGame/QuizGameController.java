@@ -1,6 +1,7 @@
 package quizGame;
 
 import mainMenu.MainMenuControl;
+import shared.Classes;
 import shared.Question;
 import database.DatabaseManager;
 
@@ -16,7 +17,7 @@ public class QuizGameController {
         this.model = new QuizGameModel();
         this.view = new QuizGameView(this);
         this.mainMenuControl = mainMenuControl;
-        this.databaseManager = new DatabaseManager();
+        this.databaseManager = new DatabaseManager(Classes.STRING);
     }
 
     public void display() {
