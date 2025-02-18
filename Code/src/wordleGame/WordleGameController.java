@@ -31,11 +31,7 @@ public class WordleGameController implements ActionListener {
                 view.setStatusMessage("Please enter exactly 5 letters");
             } else {
                 if (model.checkAnswer(guess)) {
-                    view.setStatusMessage("Correct! The word was " + model.getTargetWord());
-                    for (int i = 0; i < 5; i++) {
-                        view.setColor(attempt, i, Color.GREEN);
-                    }
-                    view.disableInput();
+                    view.setWinScreen(model.getTargetWord(), attempt);
                 } else {
                     view.setStatusMessage("Incorrect! You have " + model.getAttemptsLeft() + " attempts left");
                     view.disableRow(attempt);
