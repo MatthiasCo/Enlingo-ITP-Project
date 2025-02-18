@@ -58,6 +58,9 @@ public class QuizGameView extends JFrame {
         nameLabel.setFont(new Font("Arial", Font.BOLD, 20));
         centerPanel.add(nameLabel, BorderLayout.NORTH);
 
+        centerPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)); // Add padding to centerPanel
+        centerPanel.setBackground(Color.BLUE);
+
         add(bottomPanel, BorderLayout.SOUTH);
         add(centerPanel, BorderLayout.CENTER);
         setResizable(false); // Make the window non-resizable

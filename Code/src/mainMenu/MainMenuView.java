@@ -52,7 +52,7 @@ public class MainMenuView extends JFrame {
         add(exitButton);
     }
 
-    public void display() {
-        setVisible(true);
+    public void display(boolean b) {
+        setVisible(b);
     }
 }

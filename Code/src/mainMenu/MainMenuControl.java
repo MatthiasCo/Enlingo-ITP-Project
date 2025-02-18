@@ -56,11 +56,11 @@ public class MainMenuControl {
         }
         MainMenuControl control = new MainMenuControl();
         MainMenuView view = new MainMenuView(control);
-        view.display();
+        view.display(true);
     }
 
-    public void display() {
-        this.view.display();
+    public void display(boolean b) {
+        this.view.display(b);
     }
 
 }
