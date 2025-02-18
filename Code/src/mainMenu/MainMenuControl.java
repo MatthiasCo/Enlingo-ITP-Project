@@ -1,13 +1,16 @@
 package mainMenu;
 
+import com.formdev.flatlaf.FlatDarkLaf;
 import quizGame.*;
 import wordleGame.*;
 import questionManager.*;
 
+import javax.swing.*;
+
 public class MainMenuControl {
     private MainMenuView view;
 
-    public MainMenuControl () {
+    public MainMenuControl() {
         this.view = new MainMenuView();
     }
 
@@ -30,7 +33,6 @@ public class MainMenuControl {
         WordleGameController wordleGame = new WordleGameController(this);
     }
 
-
     public void navigateToQuestionManager() {
         this.view.setVisible(false);
         QuestionManagerController questionManager = new QuestionManagerController(this);
@@ -38,6 +40,13 @@ public class MainMenuControl {
     }
 
     public static void main(String[] args) {
+        // Set FlatLaf Dark theme
+        try {
+            UIManager.setLookAndFeel(new FlatDarkLaf());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         MainMenuView view = new MainMenuView();
         MainMenuControl control = new MainMenuControl();
         view.setControl(control);
@@ -45,6 +54,8 @@ public class MainMenuControl {
     }
 
     public void display() {
-    this.view = new MainMenuView();
+        this.view = new MainMenuView();
+        this.view.setControl(this);
+        this.view.display();
     }
 }
