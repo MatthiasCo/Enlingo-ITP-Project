@@ -1,11 +1,18 @@
 package shared;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class TopBar extends JPanel {
+import mainMenu.MainMenuControl;
+
+public class TopBar extends JPanel implements ActionListener{
+    private MainMenuControl mainMenuControl;
+
     public TopBar() {
+        this.mainMenuControl = new MainMenuControl();
         setLayout(new BorderLayout());
-        setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.BLACK)); // Bottom border
+        setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.GRAY)); // Bottom border
 
         // Left-aligned label
         JLabel titleLabel = new JLabel("Enlingo-Deine Englischlernplattform");
@@ -19,9 +26,10 @@ public class TopBar extends JPanel {
 
         // Right-aligned home button
         JButton homeButton = new JButton(" HOME", resizedIcon);
+        homeButton.addActionListener(this);
+        homeButton.setActionCommand("home");
         homeButton.setFont(new Font("Arial", Font.BOLD, 14));
         homeButton.setFocusPainted(false);
-        homeButton.setBorderPainted(false);
         homeButton.setContentAreaFilled(false);
 
         JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
@@ -30,5 +38,10 @@ public class TopBar extends JPanel {
 
         add(titleLabel, BorderLayout.WEST);
         add(rightPanel, BorderLayout.EAST);
+    }
+    public void actionPerformed(ActionEvent e) {
+        if ("home".equals(e.getActionCommand())) {
+            mainMenuControl.display();
+        }
     }
 }
