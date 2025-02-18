@@ -57,7 +57,11 @@ public class WordleGameController implements ActionListener {
     }
 
     public void display (boolean show){
+        if (show){
+            view.welcomeView();
+        }
         view.display(show);
+
     }
 
     public JPanel topPanel(){
