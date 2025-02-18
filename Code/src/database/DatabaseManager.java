@@ -58,7 +58,9 @@ public class DatabaseManager<T> {
                     String[] answers = (parts[2].trim()).replace("[", "").replace("]", "").split(";");
 
                     T convertedAnswer = convertToType(answers[0]);
-                    questions.add(new Question<>(id, text, convertedAnswer, type));
+                    if (type.isInstance(convertedAnswer)) {
+                        questions.add(new Question<>(id, text, convertedAnswer, type));
+                    }
                 }
             }
         } catch (IOException e) {
@@ -90,16 +92,35 @@ public class DatabaseManager<T> {
         return question;
     }
 
-    // Converts the string answer to the specified type dynamically
     private T convertToType(String value) {
-        if (type == Integer.class) {
-            return type.cast(Integer.parseInt(value));
-        } else if (type == Double.class) {
-            return type.cast(Double.parseDouble(value));
-        } else if (type == Boolean.class) {
-            return type.cast(Boolean.parseBoolean(value));
-        } else {
-            return type.cast(value); // Default to String
+        try {
+            if (type == Byte.class && Byte.parseByte(value) == Double.parseDouble(value)) {
+                return type.cast(Byte.parseByte(value));
+            } else if (type == Short.class && Short.parseShort(value) == Double.parseDouble(value)) {
+                return type.cast(Short.parseShort(value));
+            } else if (type == Integer.class && Integer.parseInt(value) == Double.parseDouble(value)) {
+                return type.cast(Integer.parseInt(value));
+            } else if (type == Long.class && Long.parseLong(value) == Double.parseDouble(value)) {
+                return type.cast(Long.parseLong(value));
+            } else if (type == Float.class && Float.parseFloat(value) == Double.parseDouble(value)) {
+                return type.cast(Float.parseFloat(value));
+            } else if (type == Double.class) {
+                return type.cast(Double.parseDouble(value));
+            } else if (type == Boolean.class) {
+                if (value.equalsIgnoreCase("true") || value.equalsIgnoreCase("false")) {
+                    return type.cast(Boolean.parseBoolean(value));
+                }
+            } else if (type == Character.class) {
+                if (value.length() == 1) {
+                    return type.cast(value.charAt(0));
+                }
+            } else if (type == String.class) {
+                return type.cast(value);
+            }
+        } catch (NumberFormatException e) {
+            System.err.println("Error converting value: " + value + " to type: " + type.getSimpleName());
+            return null;
         }
+        return null;
     }
 }

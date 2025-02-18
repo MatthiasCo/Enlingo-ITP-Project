@@ -8,8 +8,8 @@ import java.util.List;
 import shared.Question;
 
 public class QuestionManagerView extends JFrame {
-    private JList<Question> questionList;
-    private DefaultListModel<Question> listModel;
+    private JList<Question<Object>> questionList;
+    private DefaultListModel<Question<Object>> listModel;
     private JTextArea questionText;
     private JButton saveButton;
     private QuestionManagerController controller;
@@ -26,12 +26,11 @@ public class QuestionManagerView extends JFrame {
         setLayout(new BorderLayout());
         setLocationRelativeTo(null);
 
-
         questionList = new JList<>(listModel);
         questionList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         questionList.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
-                Question selectedQuestion = questionList.getSelectedValue();
+                Question<Object> selectedQuestion = questionList.getSelectedValue();
                 if (selectedQuestion != null) {
                     questionText.setText(selectedQuestion.getText());
                 }
@@ -49,24 +48,20 @@ public class QuestionManagerView extends JFrame {
         saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Question selectedQuestion = questionList.getSelectedValue();
-                /**
-
+                Question<Object> selectedQuestion = questionList.getSelectedValue();
                 if (selectedQuestion != null) {
                     selectedQuestion.setText(questionText.getText());
                     controller.updateQuestion(selectedQuestion);
                 }
-
-                 */
             }
         });
         add(saveButton, BorderLayout.SOUTH);
         setVisible(true);
     }
 
-    public void setQuestions(List<Question<String>> questions) {
+    public void setQuestions(List<Question<Object>> questions) {
         listModel.clear();
-        for (Question question : questions) {
+        for (Question<Object> question : questions) {
             listModel.addElement(question);
         }
     }

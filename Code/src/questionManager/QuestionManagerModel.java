@@ -1,9 +1,9 @@
 package questionManager;
 import database.DatabaseManager;
+import shared.Classes;
 import shared.Question;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class QuestionManagerModel {
     private DatabaseManager<Object> dbController;
@@ -13,12 +13,19 @@ public class QuestionManagerModel {
     }
 
     public List<Question<Object>> getAllQuestions() {
-        List<Question<Object>> allQuestions = new ArrayList<>();
-        allQuestions.addAll(fetchQuestionsOfType(String.class));
-        allQuestions.addAll(fetchQuestionsOfType(Integer.class));
-        allQuestions.addAll(fetchQuestionsOfType(Double.class));
-        allQuestions.addAll(fetchQuestionsOfType(Boolean.class));
-        return allQuestions;
+        Set<Question<Object>> allQuestions = new HashSet<>();
+        allQuestions.addAll(fetchQuestionsOfType(Classes.STRING));
+        allQuestions.addAll(fetchQuestionsOfType(Classes.INTEGER));
+        allQuestions.addAll(fetchQuestionsOfType(Classes.DOUBLE));
+        allQuestions.addAll(fetchQuestionsOfType(Classes.BOOLEAN));
+        allQuestions.addAll(fetchQuestionsOfType(Classes.FLOAT));
+        allQuestions.addAll(fetchQuestionsOfType(Classes.LONG));
+        allQuestions.addAll(fetchQuestionsOfType(Classes.SHORT));
+        allQuestions.addAll(fetchQuestionsOfType(Classes.BYTE));
+        allQuestions.addAll(fetchQuestionsOfType(Classes.CHARACTER));
+        List<Question<Object>> sortedQuestions = new ArrayList<>(allQuestions);
+        sortedQuestions.sort(Comparator.comparingInt(Question::getId));
+        return sortedQuestions;
     }
 
     private <T> List<Question<Object>> fetchQuestionsOfType(Class<T> type) {

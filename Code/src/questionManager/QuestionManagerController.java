@@ -7,7 +7,6 @@ import java.util.List;
 
 public class QuestionManagerController {
     private MainMenuControl mainMenu;
-
     private QuestionManagerModel model;
     private QuestionManagerView view;
 
@@ -23,12 +22,12 @@ public class QuestionManagerController {
     }
 
     public void loadQuestions() {
-        //List<Question<String>> questions = model.getAllQuestions();
-        //view.setQuestions(questions);
+        List<Question<Object>> questions = model.getAllQuestions();
+        view.setQuestions(questions);
     }
 
-    public void updateQuestion(Question<String> question) {
-        //model.updateQuestion(question);
+    public void updateQuestion(Question<Object> question) {
+        model.updateQuestion(question);
         loadQuestions();
     }
 
@@ -42,6 +41,5 @@ public class QuestionManagerController {
         //MainMenuControl mainMenu = new MainMenuControl();
         //QuestionManagerController questionManager = new QuestionManagerController();
         //questionManager.display();
-
     }
 }
