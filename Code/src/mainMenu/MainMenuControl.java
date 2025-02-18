@@ -12,6 +12,13 @@ public class MainMenuControl {
 
     public MainMenuControl() {
         this.view = new MainMenuView();
+        QuizGameController quizGame = new QuizGameController(this);
+        quizGame.display(false);
+        WordleGameController wordleGame = new WordleGameController(this);
+        wordleGame.display(false);
+        QuestionManagerController questionManager = new QuestionManagerController(this);
+        questionManager.display(false);
+
     }
 
     public MainMenuView getView() {
