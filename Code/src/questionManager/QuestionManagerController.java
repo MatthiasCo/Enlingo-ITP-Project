@@ -33,7 +33,7 @@ public class QuestionManagerController {
     }
 
     public void navigateBack() {
-        mainMenu.display();
+        mainMenu.display(true);
         view.setVisible(false);
     }
 }
