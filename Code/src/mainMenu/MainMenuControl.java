@@ -21,6 +21,7 @@ public class MainMenuControl {
         wordleGame.display(false);
         questionManager = new QuestionManagerController(this);
         questionManager.display(false);
+        view.display(true);
     }
 
     public MainMenuView getView() {
@@ -54,9 +55,7 @@ public class MainMenuControl {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        MainMenuControl control = new MainMenuControl();
-        MainMenuView view = new MainMenuView(control);
-        view.display(true);
+        new MainMenuControl();
     }
 
     public void display(boolean b) {
