@@ -2,6 +2,9 @@ package quizGame;
 
 import mainMenu.MainMenuControl;
 import shared.Question;
+import shared.TopBar;
+
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -48,5 +51,9 @@ public class QuizGameController implements ActionListener {
                 checkAnswer(view.getAnswerField().getText());
                 break;
         }
+    }
+
+    public JPanel topPanel(){
+        return (new TopBar(this.mainMenuControl));
     }
 }

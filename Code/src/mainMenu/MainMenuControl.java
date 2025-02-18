@@ -62,4 +62,5 @@ public class MainMenuControl {
     public void display() {
         this.view.display();
     }
+
 }

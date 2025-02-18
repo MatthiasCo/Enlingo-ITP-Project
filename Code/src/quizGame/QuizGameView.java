@@ -23,7 +23,7 @@ public class QuizGameView extends JFrame {
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
 
-        topBar = new TopBar();
+        topBar = controller.topPanel();
         add(topBar, BorderLayout.NORTH);
 
         // Question label in the center
