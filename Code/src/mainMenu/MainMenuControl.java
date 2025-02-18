@@ -14,14 +14,13 @@ public class MainMenuControl {
     QuestionManagerController questionManager;
 
     public MainMenuControl() {
-        this.view = new MainMenuView();
+        this.view = new MainMenuView(this);
         quizGame = new QuizGameController(this);
         quizGame.display(false);
         wordleGame = new WordleGameController(this);
         wordleGame.display(false);
         questionManager = new QuestionManagerController(this);
         questionManager.display(false);
-
     }
 
     public MainMenuView getView() {
@@ -55,16 +54,12 @@ public class MainMenuControl {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        MainMenuView view = new MainMenuView();
         MainMenuControl control = new MainMenuControl();
-        view.setControl(control);
+        MainMenuView view = new MainMenuView(control);
         view.display();
     }
 
     public void display() {
-        this.view = new MainMenuView();
-        this.view.setControl(this);
         this.view.display();
     }
 }

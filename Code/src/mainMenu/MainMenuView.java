@@ -6,10 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MainMenuView extends JFrame {
-    private MainMenuControl control;
 
-    public MainMenuView() {
-        this.control = control;
+    public MainMenuView(MainMenuControl control) {
         setTitle("Main Menu");
         setSize(500, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -56,9 +54,5 @@ public class MainMenuView extends JFrame {
 
     public void display() {
         setVisible(true);
-    }
-
-    public void setControl(MainMenuControl control) {
-        this.control = control;
     }
 }
