@@ -16,9 +16,8 @@ public class QuizGameController implements ActionListener {
         this.mainMenuControl = mainMenuControl;
     }
 
-    public void display() {
-        view.setVisible(true);
-        startQuiz();
+    public void display(boolean b) {
+        view.setVisible(b);
     }
 
     public void startQuiz() {

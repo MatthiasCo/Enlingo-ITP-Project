@@ -32,7 +32,8 @@ public class MainMenuControl {
     public void navigateToQuizGame() {
         this.view.setVisible(false);
         QuizGameController quizGame = new QuizGameController(this);
-        quizGame.display();
+        quizGame.display(true);
+        quizGame.startQuiz();
     }
 
     public void navigateToWordleGame() {
