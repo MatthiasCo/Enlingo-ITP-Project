@@ -173,7 +173,7 @@ public class WordleGameView {
         field.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
-                if (field.getText().length() >= 1) {    // Limit the input to 1 character
+                if (field.getText().length() >= 1 || !Character.isLetter(e.getKeyChar())) {    // Limit the input to 1 character
                     e.consume();    // Ignore the key press
                 }
             }
@@ -186,7 +186,7 @@ public class WordleGameView {
                 }
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) { // Detect the Enter key press
                     controller.submit(); // Submit the guess
-                    if (row < 5 && col == 4) {
+                    if (row < 5 && getCurrentGuess(row).length()==5) {
                         inputField[row + 1][0].requestFocus(); // Move to the next row
                     }
                 }
