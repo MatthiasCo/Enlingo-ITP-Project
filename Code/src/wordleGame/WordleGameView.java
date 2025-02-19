@@ -55,14 +55,14 @@ public class WordleGameView {
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 50)); // Center the button, with vertical gap
 
         startButton = new JButton("Start");
-        startButton.setFont(new Font("Arial", Font.BOLD, 20));
+        startButton.setFont(new Font("Arial", Font.BOLD, 36));
         startButton.setActionCommand("start");
         startButton.addActionListener(controller);
 
 
         startButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR)); // Change cursor to hand on hover
 
-        startButton.setPreferredSize(new Dimension(300, 100)); // Adjust width as needed (200px here)
+        startButton.setPreferredSize(new Dimension(400, 100)); // Adjust width as needed (200px here)
 
 
         startButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -87,7 +87,6 @@ public class WordleGameView {
         frame.add(containerPanel, BorderLayout.CENTER); // Add containerPanel to mainPanel
         frame.revalidate(); // Refresh layout after adding components
         frame.repaint(); // Redraw the frame
-
     }
 
 
@@ -187,6 +186,9 @@ public class WordleGameView {
                 }
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) { // Detect the Enter key press
                     controller.submit(); // Submit the guess
+                    if (row < 4) {
+                        inputField[row + 1][0].requestFocus(); // Move to the next row
+                    }
                 }
                 if (e.getKeyCode()==KeyEvent.VK_DELETE || e.getKeyCode()==KeyEvent.VK_BACK_SPACE){
                     if (col > 0) {
