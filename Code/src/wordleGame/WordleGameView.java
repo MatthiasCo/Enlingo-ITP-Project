@@ -186,7 +186,7 @@ public class WordleGameView {
                 }
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) { // Detect the Enter key press
                     controller.submit(); // Submit the guess
-                    if (row < 4) {
+                    if (row < 4 && col == 4) {
                         inputField[row + 1][0].requestFocus(); // Move to the next row
                     }
                 }
