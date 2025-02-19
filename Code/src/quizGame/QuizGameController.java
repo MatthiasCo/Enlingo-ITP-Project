@@ -14,9 +14,9 @@ public class QuizGameController implements ActionListener {
     private MainMenuControl mainMenuControl;
 
     public QuizGameController(MainMenuControl mainMenuControl) {
+        this.mainMenuControl = mainMenuControl;
         this.model = new QuizGameModel();
         this.view = new QuizGameView(this);
-        this.mainMenuControl = mainMenuControl;
     }
 
     public void display(boolean b) {
@@ -26,11 +26,7 @@ public class QuizGameController implements ActionListener {
     public void startQuiz() {
         model.startQuiz();
         Question<String> currentQuestion = model.getCurrentQuestion();
-        if (currentQuestion != null) {
-            view.displayQuestion(currentQuestion.getText());
-        } else {
-            view.displayQuestion("No questions available.");
-        }
+        view.displayQuestion(currentQuestion.getText());
     }
 
     public void checkAnswer(String answer) {
