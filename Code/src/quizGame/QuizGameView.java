@@ -11,7 +11,6 @@ public class QuizGameView extends JFrame {
     private QuizGameController controller;
     private JLabel questionLabel;
     private JTextField answerField;
-    private JButton homeButton;
     private String lastAnswer = "";
     private JLabel nameLabel;
     private JPanel topBar;
@@ -21,9 +20,10 @@ public class QuizGameView extends JFrame {
         setSize(500, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+        setTitle("Quiz Game");
         setLayout(new BorderLayout());
 
-        topBar = controller.topPanel();
+        topBar = this.controller.topPanel();
         add(topBar, BorderLayout.NORTH);
 
         // Question label in the center
@@ -57,9 +57,6 @@ public class QuizGameView extends JFrame {
         nameLabel.setBorder(BorderFactory.createEmptyBorder(30, 0, 0, 0)); // Add padding to nameLabel
         nameLabel.setFont(new Font("Arial", Font.BOLD, 20));
         centerPanel.add(nameLabel, BorderLayout.NORTH);
-
-        centerPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)); // Add padding to centerPanel
-        centerPanel.setBackground(Color.BLUE);
 
         add(bottomPanel, BorderLayout.SOUTH);
         add(centerPanel, BorderLayout.CENTER);
