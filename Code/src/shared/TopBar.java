@@ -17,7 +17,7 @@ public class TopBar extends JPanel implements ActionListener{
             setBorder(BorderFactory.createMatteBorder(1, 0, 1, 0, Color.GRAY)); // Bottom border
 
             // Left-aligned label
-            JLabel titleLabel = new JLabel("shared.Enlingo-Deine Englischlernplattform");
+            JLabel titleLabel = new JLabel("Enlingo-Deine Englischlernplattform");
             titleLabel.setFont(new Font("Arial", Font.PLAIN, 14));
             titleLabel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 0));
 
