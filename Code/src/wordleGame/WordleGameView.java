@@ -188,6 +188,11 @@ public class WordleGameView {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) { // Detect the Enter key press
                     controller.submit(); // Submit the guess
                 }
+                if (e.getKeyCode()==KeyEvent.VK_DELETE || e.getKeyCode()==KeyEvent.VK_BACK_SPACE){
+                    if (col > 0) {
+                        inputField[row][col - 1].requestFocus();
+                    }
+                }
             }
         });
     }
