@@ -15,6 +15,7 @@ public class WordleGameController implements ActionListener {
     private WordleGameModel model;
     private WordleGameView view;
     private int attempt = 0;
+    boolean buttonEnabled = true;
 
     public WordleGameController(MainMenuControl mainMenuControl) {
         this.model = new WordleGameModel();
@@ -40,7 +41,7 @@ public class WordleGameController implements ActionListener {
                     int[] colorControll = model.checkColor(guess);
                     view.setColors(attempt, colorControll);
                     attempt++;
-                    if (model.getAttemptsLeft() == 0) {
+                    if (model.getAttemptsLeft()==0) {
                         view.setStatusMessage("Game over! The word was " + model.getTargetWord());
                         view.disableInput();
                     }
@@ -56,8 +57,16 @@ public class WordleGameController implements ActionListener {
         }
     }
 
+    public void submit(){
+        if(buttonEnabled){ actionPerformed(new ActionEvent(this, 0, "submit"));}
+    }
+
     public void display (boolean show){
         view.display(show);
+    }
+
+    public void setButtonEnabled(boolean enabled){
+        this.buttonEnabled = enabled;
     }
 
     public JPanel topPanel(){

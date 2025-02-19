@@ -24,13 +24,12 @@ public class WordleGameView {
 
     private WordleGameController controller;
     private JTextField[][] inputField;
-    private JButton submitButton;
     private JButton restartButton;
 
     public WordleGameView(WordleGameController controller) {
         frame = new JFrame("Wordle Game");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(500, 400);
+        frame.setSize(900, 600);
         frame.setLocationRelativeTo(null); // Center the frame on the screen
 
         this.controller = controller;
@@ -46,11 +45,14 @@ public class WordleGameView {
         containerPanel = new JPanel();
         containerPanel.setLayout(new BorderLayout()); // Set mainPanel layout to BorderLayout;
 
-        this.welcomeLabel = new JLabel("Willkommen zu Wordle!", SwingConstants.CENTER); // Center the text
-        welcomeLabel.setFont(new Font("Arial", Font.BOLD, 30));
-
+        welcomeLabel = new JLabel(
+                "<html><div style='text-align: center;'>" +
+                        "<span style='font-family: Arial; font-size: 40px; font-weight: bold; font-style: italic;'>WORDLE</span><br><br>" +
+                        "<span style='font-family: Arial; font-size: 24px; font-weight: normal;'>Welcome to Wordle!<br>Press START to begin guessing!</span>" +
+                        "</div></html>"
+        );        welcomeLabel.setHorizontalAlignment(SwingConstants.CENTER);
         buttonPanel = new JPanel();
-        buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 30)); // Center the button, with vertical gap
+        buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 50)); // Center the button, with vertical gap
 
         startButton = new JButton("Start");
         startButton.setFont(new Font("Arial", Font.BOLD, 20));
@@ -60,7 +62,7 @@ public class WordleGameView {
 
         startButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR)); // Change cursor to hand on hover
 
-        startButton.setPreferredSize(new Dimension(200, 50)); // Adjust width as needed (200px here)
+        startButton.setPreferredSize(new Dimension(300, 100)); // Adjust width as needed (200px here)
 
 
         startButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -77,6 +79,8 @@ public class WordleGameView {
         topPanel = controller.topPanel();
 
         containerPanel.add(topPanel, BorderLayout.NORTH);
+
+
         containerPanel.add(welcomeLabel, BorderLayout.CENTER);
         containerPanel.add(buttonPanel, BorderLayout.SOUTH);
 
@@ -95,11 +99,13 @@ public class WordleGameView {
         containerPanel.setLayout(new BorderLayout());
 
         midPanel = new JPanel();
-        midPanel.setLayout(new BoxLayout(midPanel, BoxLayout.Y_AXIS));
+        midPanel.setLayout(new BorderLayout());
 
         this.statusLabel = new JLabel("Enter a 5-letter word", SwingConstants.CENTER);
         statusLabel.setFont(new Font("Arial", Font.BOLD, 18));
-        midPanel.add(statusLabel);
+        statusLabel.setForeground(Color.WHITE);
+        statusLabel.setPreferredSize(new Dimension(900,40));
+        midPanel.add(statusLabel, BorderLayout.PAGE_START);
 
         JPanel inputPanel = new JPanel();
         this.inputField = new JTextField[5][5];
@@ -118,28 +124,25 @@ public class WordleGameView {
             inputField[0][j].setEditable(true);
         }
 
+        inputPanel.setBorder(new EmptyBorder(0, 50, 0, 50));
         midPanel.add(inputPanel);
         containerPanel.add(midPanel, BorderLayout.CENTER);
 
         buttonPanel = new JPanel();
-        buttonPanel.setLayout(new GridLayout(1, 2));
-
-        submitButton = new JButton("Submit");
-        submitButton.setActionCommand("submit");
-        submitButton.addActionListener(controller);
-        submitButton.setPreferredSize(new Dimension(200, 25));
-        buttonPanel.add(submitButton);
+        buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0,20));
 
         restartButton = new JButton("Restart");
         restartButton.setActionCommand("restart");
         restartButton.addActionListener(controller);
-        restartButton.setPreferredSize(new Dimension(200, 25));
+        restartButton.setPreferredSize(new Dimension(450, 50));
         buttonPanel.add(restartButton);
 
         topPanel = controller.topPanel();
 
         containerPanel.add(buttonPanel, BorderLayout.SOUTH);
         containerPanel.add(topPanel, BorderLayout.NORTH);
+
+        controller.setButtonEnabled(true);
 
         frame.add(containerPanel);
         frame.revalidate(); // Refresh layout after adding components
@@ -161,8 +164,10 @@ public class WordleGameView {
             inputField[0][j].setEditable(true);
             inputField[0][j].setBackground(new Color(70,73,75,255));
         }
+        controller.setButtonEnabled(true);
+        statusLabel.setForeground(Color.WHITE);
         statusLabel.setText("Enter a 5-letter word");
-        submitButton.setEnabled(true);
+
     }
 
     private void addInputFieldListener(JTextField field, int row, int col) {
@@ -181,7 +186,7 @@ public class WordleGameView {
                     moveToNextField(row, col); // Move to the next field
                 }
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) { // Detect the Enter key press
-                    submitButton.doClick(); // Simulate pressing the submit button
+                    controller.submit(); // Submit the guess
                 }
             }
         });
@@ -237,13 +242,14 @@ public class WordleGameView {
     public void disableRow(int attempt) {
         for (int j = 0; j < 5; j++) {
             inputField[attempt][j].setEditable(false);
-            inputField[attempt+1][j].setBackground(new Color(70,73,75,255));
         }
 
         // Only enable the next row if there is one
         if (attempt < 4) {
             for (int j = 0; j < 5; j++) {
                 inputField[attempt + 1][j].setEditable(true);
+                inputField[attempt+1][j].setBackground(new Color(70,73,75,255));
+
             }
         }
     }
@@ -254,7 +260,8 @@ public class WordleGameView {
                 inputField[i][j].setEditable(false);
             }
         }
-        submitButton.setEnabled(false);
+        controller.setButtonEnabled(false);
+        statusLabel.setForeground(Color.RED);
     }
 
     public void setWinScreen(String targetWord, int attempt) {
@@ -262,6 +269,9 @@ public class WordleGameView {
         for (int i = 0; i < 5; i++) {
             setColor(attempt, i, Color.GREEN);
         }
-        disableInput();    }
+        disableInput();
+        statusLabel.setForeground(Color.GREEN);
+
+    }
 
 }
