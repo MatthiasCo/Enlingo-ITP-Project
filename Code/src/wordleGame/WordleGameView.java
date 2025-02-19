@@ -107,9 +107,9 @@ public class WordleGameView {
         midPanel.add(statusLabel, BorderLayout.PAGE_START);
 
         JPanel inputPanel = new JPanel();
-        this.inputField = new JTextField[5][5];
-        inputPanel.setLayout(new GridLayout(5, 5));
-        for (int i = 0; i < 5; i++) {
+        this.inputField = new JTextField[6][5];
+        inputPanel.setLayout(new GridLayout(6, 5));
+        for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 5; j++) {
                 this.inputField[i][j] = new JTextField();
                 inputField[i][j].setFont(new Font("Arial", Font.BOLD, 24));
@@ -123,7 +123,7 @@ public class WordleGameView {
             inputField[0][j].setEditable(true);
         }
 
-        inputPanel.setBorder(new EmptyBorder(0, 50, 0, 50));
+        inputPanel.setBorder(new EmptyBorder(0, 70, 0, 70));
         midPanel.add(inputPanel);
         containerPanel.add(midPanel, BorderLayout.CENTER);
 
@@ -150,7 +150,7 @@ public class WordleGameView {
 
     // Reset the view to its initial state
     public void resetView(){
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 5; j++) {
                 inputField[i][j].setText("");
                 inputField[i][j].setBackground(new Color(60,63,65,255));
@@ -186,7 +186,7 @@ public class WordleGameView {
                 }
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) { // Detect the Enter key press
                     controller.submit(); // Submit the guess
-                    if (row < 4 && col == 4) {
+                    if (row < 5 && col == 4) {
                         inputField[row + 1][0].requestFocus(); // Move to the next row
                     }
                 }
@@ -252,7 +252,7 @@ public class WordleGameView {
         }
 
         // Only enable the next row if there is one
-        if (attempt < 4) {
+        if (attempt < 5) {
             for (int j = 0; j < 5; j++) {
                 inputField[attempt + 1][j].setEditable(true);
                 inputField[attempt+1][j].setBackground(new Color(70,73,75,255));
@@ -262,7 +262,7 @@ public class WordleGameView {
     }
 
     public void disableInput(){
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 5; j++) {
                 inputField[i][j].setEditable(false);
             }

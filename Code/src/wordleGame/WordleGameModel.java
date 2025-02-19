@@ -7,7 +7,7 @@ public class WordleGameModel {
     private DatabaseManager databaseManager;
     private String targetWord;
     private Question question;
-    private int attemptsleft = 5;
+    private int attemptsleft = 6;
 
     public WordleGameModel() {
         databaseManager = new DatabaseManager(Classes.STRING);
@@ -65,4 +65,5 @@ public class WordleGameModel {
         return colors;
 
     }
+
 }
