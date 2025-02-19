@@ -34,19 +34,19 @@ public class MainMenuControl {
     }
 
     public void navigateToQuizGame() {
-        this.view.setVisible(false);
         quizGame.display(true);
         quizGame.startQuiz(); // Ensure startQuiz is called
+        this.view.setVisible(false);
     }
 
     public void navigateToWordleGame() {
-        this.view.setVisible(false);
         wordleGame.display(true);
+        this.view.setVisible(false);
     }
 
     public void navigateToQuestionManager() {
-        this.view.setVisible(false);
         questionManager.display(true);
+        this.view.setVisible(false);
     }
 
     public void display(boolean b) {

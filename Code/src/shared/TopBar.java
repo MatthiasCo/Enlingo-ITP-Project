@@ -47,8 +47,8 @@ public class TopBar extends JPanel implements ActionListener{
     }
     public void actionPerformed(ActionEvent e) {
         if ("home".equals(e.getActionCommand())) {
-            Enlingo.hideAllViews(this.mainMenuControl);
             this.mainMenuControl.display(true);
+            Enlingo.hideAllViews(this.mainMenuControl);
         }
     }
 }
