@@ -23,15 +23,33 @@ public class DatabaseManager<T> {
 
     // Removes a question by ID
     public void removeQuestion(int questionId) {
-        List<Question<T>> allQuestions = getAllQuestions();
-        try (FileWriter writer = new FileWriter(fileLocation)) {
-            for (Question<T> question : allQuestions) {
-                if (question.getId() != questionId) {
-                    writer.append(question.csvConvert()).append("\n");
+        File inputFile = new File(fileLocation);
+        File tempFile = new File("src/database/tempFile.csv");
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+             BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts.length > 0 && parts[0].trim().matches("\\d+")) {
+                    int id = Integer.parseInt(parts[0].trim());
+                    if (id != questionId) {
+                        writer.write(line);
+                        writer.newLine();
+                    }
                 }
             }
         } catch (IOException e) {
-            System.err.println("Error writing to file: " + e.getMessage());
+            System.err.println("Error processing file: " + e.getMessage());
+        }
+
+        if (!inputFile.delete()) {
+            System.err.println("Could not delete original file");
+            return;
+        }
+
+        if (!tempFile.renameTo(inputFile)) {
+            System.err.println("Could not rename temporary file");
         }
     }
 
