@@ -18,7 +18,6 @@ public class QuestionManagerView extends JFrame {
 
     public QuestionManagerView(QuestionManagerController controller) {
         this.controller = controller;
-        init();
     }
 
     public void init() {
@@ -41,18 +40,19 @@ public class QuestionManagerView extends JFrame {
         questionTable = new JTable(tableModel);
         questionTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
+        controller.loadQuestions();
         // Add a listener to handle cell updates
         tableModel.addTableModelListener(e -> {
             if (e.getType() == TableModelEvent.UPDATE) {
                 int row = e.getFirstRow();
                 int column = e.getColumn();
                 if (column == 3) { // If Answers column is updated
-                    int id = (int) tableModel.getValueAt(row, 0);
+                     int id = (int) tableModel.getValueAt(row, 0);
                     String questionText = (String) tableModel.getValueAt(row, 1);
                     String answersJoined = (String) tableModel.getValueAt(row, 3);
                     String[] answers = answersJoined.isEmpty() ? new String[0] : answersJoined.split(";");
                     String answerType = answers.length > 1 ? answers[0].getClass().getSimpleName() + "-array" : answers[0].getClass().getSimpleName();
-                    tableModel.setValueAt(answerType, row, 2); // Update Answer Type column
+                    tableModel.setValueAt(answerType, row, 2);
                     Question<Object> question = new Question<>(id, questionText, answers, Object.class);
                     controller.updateQuestion(question);
                 }
