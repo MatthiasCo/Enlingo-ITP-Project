@@ -58,6 +58,7 @@ public class DatabaseManager<T> {
     public List<Question<T>> getAllQuestions() {
         List<Question<T>> questions = new ArrayList<>();
         try (BufferedReader reader = Files.newBufferedReader(Paths.get(fileLocation), StandardCharsets.UTF_8)) {
+            reader.readLine(); // Skip header
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
