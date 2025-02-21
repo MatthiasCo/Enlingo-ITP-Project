@@ -64,7 +64,7 @@ public class Question<T> {
     }
 
     public String csvConvert() {
-        return id + "," + text + "," + Arrays.toString(answers);
+        return id + "," + text + "," + String.join(";", Arrays.stream(answers).map(Object::toString).toArray(String[]::new));
     }
 
     @Override

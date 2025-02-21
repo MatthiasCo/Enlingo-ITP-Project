@@ -6,6 +6,7 @@ import java.util.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.lang.reflect.Array;
 
 public class DatabaseManager<T> {
     private static final String fileLocation = "src/database/Datenbank_Enlingo.csv";
@@ -76,7 +77,16 @@ public class DatabaseManager<T> {
                     String[] answers = parts[2].trim().replace("[", "").replace("]", "").split(";");
                     T convertedAnswer = convertToType(answers[0].trim());
                     if (type.isInstance(convertedAnswer)) {
-                        questions.add(new Question<>(id, text, convertedAnswer, type));
+                        if(answers.length == 1) {
+                            questions.add(new Question<>(id, text, convertedAnswer, type));
+                        } else {
+                            //if multiple answers then use the other contructor
+                            T[] convertedAnswers = (T[]) Array.newInstance(type, answers.length);
+                            for (int i = 0; i < answers.length; i++) {
+                                convertedAnswers[i] = convertToType(answers[i].trim());
+                            }
+                            questions.add(new Question<>(id, text, convertedAnswers));
+                        }
                     }
                 }
             }

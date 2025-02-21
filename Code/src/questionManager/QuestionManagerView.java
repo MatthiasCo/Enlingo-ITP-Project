@@ -56,20 +56,20 @@ public class QuestionManagerView extends JFrame {
                         int id = (int) tableModel.getValueAt(row, 0);
                         String questionText = (String) tableModel.getValueAt(row, 1);
                         String answersJoined = (String) tableModel.getValueAt(row, 3);
-                        String[] answers = answersJoined.isEmpty() ? new String[0] : answersJoined.split(";");
+                        String[] answers = answersJoined.isEmpty() ? new String[0] : answersJoined.split(",\\s*");
 
                         // Cast controller.getDB() to DatabaseManager<Object>
-                        DatabaseManager<Object> dbManager = (DatabaseManager<Object>) controller.getDB();
+                        //DatabaseManager<Object> dbManager = (DatabaseManager<Object>) controller.getDB();
 
                         // Determine the type of the answers
                         Object[] typedAnswers = Arrays.stream(answers)
                                 //.map(dbManager::convertToType)
                                 .filter(Objects::nonNull) // Filter out null values
-                                .filter(answer -> !answer.toString().isEmpty()) // Filter out empty strings
+                                .filter(answer -> !answer.isEmpty()) // Filter out empty strings
                                 .toArray();
 
                         // Determine the type of the first answer
-                        Class<?> answerType = typedAnswers.length > 0 ? typedAnswers[0].getClass() : String.class;
+                        //Class<?> answerType = typedAnswers.length > 0 ? typedAnswers[0].getClass() : String.class;
 
                         // Create a new Question object with an array of answers
                         Question<Object> question = new Question<>(id, questionText, typedAnswers);
@@ -111,12 +111,12 @@ public class QuestionManagerView extends JFrame {
         for (Question<?> question : questions) {
             String answerType = question.getAnswers().getClass().getComponentType().getSimpleName();
             if (question.getAnswers().length > 1) {
-                answerType += "-array";
+                answerType += "\t\t\t(Multiple Answers)";
             }
             String[] answers = Arrays.stream(question.getAnswers())
                     .map(Object::toString)
                     .toArray(String[]::new);
-            String answersJoined = String.join(";", answers);
+            String answersJoined = String.join(", ", answers); // Join answers with a comma and space
             tableModel.addRow(new Object[]{question.getId(), question.getText(), answerType, answersJoined});
         }
     }
