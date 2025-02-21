@@ -51,4 +51,8 @@ public class QuestionManagerModel {
     private <T> void setQuestionAnswers(Question<T> question, T[] answers) {
         question.setAnswers(answers);
     }
+
+    public void removeQuestion(int id) {
+        dbController.removeQuestion(id);
+    }
 }

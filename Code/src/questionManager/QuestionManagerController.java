@@ -41,4 +41,9 @@ public class QuestionManagerController {
     public JPanel topPanel(){
         return (new TopBar(this.mainMenu));
     }
+
+    public void removeQuestion(int id) {
+        model.removeQuestion(id);
+        loadQuestions();
+    }
 }
