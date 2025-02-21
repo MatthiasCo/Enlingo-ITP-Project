@@ -1,4 +1,7 @@
 ﻿ID,Question,Answer(s)
+0,Is 'Fox' an animal?,true
+1,What is the English word for 'Apfel'?,Apple
+2,How many letters are in the word 'Sun'?,3
 3,Is 'Zebra' an animal?,true
 4,What is the first letter of 'Water'?,W
 5,What is the English word for 'Papier'?,Paper
@@ -247,6 +250,3 @@
 248, How many letters are in the word 'Wine'?, 4
 249, Is 'Cup' something you drink from?, true
 250, What is the first letter of 'Banana'?, B
-1,What is the English word for 'Apfel'?,[Apples]
-2,How many letters are in the word 'Sun'?,[33]
-0,Is 'Fox' an animal?,[1]
