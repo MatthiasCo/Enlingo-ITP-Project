@@ -63,8 +63,9 @@ public class QuestionManagerView extends JFrame {
 
                         // Determine the type of the answers
                         Object[] typedAnswers = Arrays.stream(answers)
-                                .map(dbManager::convertToType)
+                                //.map(dbManager::convertToType)
                                 .filter(Objects::nonNull) // Filter out null values
+                                .filter(answer -> !answer.toString().isEmpty()) // Filter out empty strings
                                 .toArray();
 
                         // Determine the type of the first answer

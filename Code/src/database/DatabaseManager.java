@@ -23,13 +23,18 @@ public class DatabaseManager<T> {
         }
     }
 
+    // Skip the header line when removing a question
     public void removeQuestion(int questionId) {
         File inputFile = new File(fileLocation);
         File tempFile = new File("src/database/tempFile.csv");
 
         try (BufferedReader reader = new BufferedReader(new FileReader(inputFile));
              BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
-            String line;
+            String line = reader.readLine(); // Read and write the header line
+            if (line != null) {
+                writer.write(line);
+                writer.newLine();
+            }
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
                 if (parts.length > 0 && parts[0].trim().matches("\\d+")) {
