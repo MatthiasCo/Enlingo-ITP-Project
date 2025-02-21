@@ -3,6 +3,9 @@ package database;
 import shared.Question;
 import java.io.*;
 import java.util.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class DatabaseManager<T> {
     private static String fileLocation = "src/database/Datenbank_Enlingo.csv";
@@ -12,7 +15,6 @@ public class DatabaseManager<T> {
         this.type = type;
     }
 
-    // Adds a question to the CSV file
     public void addQuestion(Question<T> question) {
         try (FileWriter writer = new FileWriter(fileLocation, true)) {
             writer.append(question.csvConvert()).append("\n");
@@ -21,7 +23,6 @@ public class DatabaseManager<T> {
         }
     }
 
-    // Removes a question by ID
     public void removeQuestion(int questionId) {
         File inputFile = new File(fileLocation);
         File tempFile = new File("src/database/tempFile.csv");
@@ -53,28 +54,21 @@ public class DatabaseManager<T> {
         }
     }
 
-    // Fetches all questions from the CSV file
+
     public List<Question<T>> getAllQuestions() {
         List<Question<T>> questions = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(fileLocation))) {
+        try (BufferedReader reader = Files.newBufferedReader(Paths.get(fileLocation), StandardCharsets.UTF_8)) {
             String line;
-            for (int id = 1; ((line = reader.readLine()) != null); id++) {
+            while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
                 if (parts.length == 3) {
-                    if (parts[0] != null) {
-                        String trimmed = parts[0].trim();
-                        if (trimmed.matches("\\d+")) {  // Check if it's only digits
-                            id = Integer.parseInt(trimmed);
-                        } else {
-                            System.out.println("Invalid input: '" + trimmed + "'");
-                        }
-                    } else {
-                        System.out.println("Invalid parts array.");
-                    }
-                    String text = parts[1];
-                    String[] answers = (parts[2].trim()).replace("[", "").replace("]", "").split(";");
-
-                    T convertedAnswer = convertToType(answers[0]);
+                    int id = 0;
+                    try {
+                        id = Integer.parseInt(parts[0].trim());
+                    }catch(NumberFormatException _){}
+                    String text = parts[1].trim();
+                    String[] answers = parts[2].trim().replace("[", "").replace("]", "").split(";");
+                    T convertedAnswer = convertToType(answers[0].trim());
                     if (type.isInstance(convertedAnswer)) {
                         questions.add(new Question<>(id, text, convertedAnswer, type));
                     }
@@ -86,7 +80,6 @@ public class DatabaseManager<T> {
         return questions;
     }
 
-    // Fetches a random question from the CSV file
     public Question<T> getRandomQuestion() {
         List<Question<T>> questions = getAllQuestions();
         if (questions.isEmpty()) {
@@ -109,40 +102,40 @@ public class DatabaseManager<T> {
         return question;
     }
 
-        public T convertToType(String value) {
-            Object smallestValue;
-            if (value.length() == 1 && !Character.isDigit(value.charAt(0))) {
-                smallestValue = value.charAt(0);
-            } else {
+    public T convertToType(String value) {
+        Object smallestValue;
+        if (value.length() == 1 && !Character.isDigit(value.charAt(0))) {
+            smallestValue = value.charAt(0);
+        } else {
+            try {
+                smallestValue = Byte.parseByte(value);
+            } catch (NumberFormatException e) {
                 try {
-                    smallestValue = Byte.parseByte(value);
-                } catch (NumberFormatException e) {
+                    smallestValue = Short.parseShort(value);
+                } catch (NumberFormatException ex) {
                     try {
-                        smallestValue = Short.parseShort(value);
-                    } catch (NumberFormatException ex) {
+                        smallestValue = Integer.parseInt(value);
+                    } catch (NumberFormatException ex2) {
                         try {
-                            smallestValue = Integer.parseInt(value);
-                        } catch (NumberFormatException ex2) {
+                            smallestValue = Long.parseLong(value);
+                        } catch (NumberFormatException ex3) {
                             try {
-                                smallestValue = Long.parseLong(value);
-                            } catch (NumberFormatException ex3) {
+                                smallestValue = Float.parseFloat(value);
+                            } catch (NumberFormatException ex4) {
                                 try {
-                                    smallestValue = Float.parseFloat(value);
-                                } catch (NumberFormatException ex4) {
-                                    try {
-                                        smallestValue = Double.parseDouble(value);
-                                    } catch (NumberFormatException ex5) {
-                                        smallestValue = value;
-                                    }
+                                    smallestValue = Double.parseDouble(value);
+                                } catch (NumberFormatException ex5) {
+                                    smallestValue = value;
                                 }
                             }
                         }
                     }
                 }
             }
-            if (smallestValue.getClass().equals(type)) {
-                return type.cast(smallestValue);
-            }
-            return null;
         }
+        if (smallestValue.getClass().equals(type)) {
+            return type.cast(smallestValue);
+        }
+        return null;
+    }
 }

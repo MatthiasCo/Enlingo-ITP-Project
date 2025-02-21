@@ -1,6 +1,9 @@
 package questionManager;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,62 +11,77 @@ import java.util.List;
 import shared.Question;
 
 public class QuestionManagerView extends JFrame {
-    private JList<Question<Object>> questionList;
-    private DefaultListModel<Question<Object>> listModel;
-    private JTextArea questionText;
+    private JTable questionTable;
+    private DefaultTableModel tableModel;
+    private JTextField questionTextField;
+    private JTextField answerTextField;
     private JButton saveButton;
     private JPanel topPanel;
     private QuestionManagerController controller;
 
     public QuestionManagerView(QuestionManagerController controller) {
         this.controller = controller;
-        listModel = new DefaultListModel<>();
+        init();
     }
 
     public void init() {
         setTitle("Question Manager");
-        setSize(1000, 400);
+        setSize(1000, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
         setLocationRelativeTo(null);
 
-        questionList = new JList<>(listModel);
-        questionList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        questionList.addListSelectionListener(e -> {
+        topPanel = controller.topPanel();
+        saveButton = new JButton("Save");
+        answerTextField = new JTextField();
+        questionTextField = new JTextField();
+
+
+        tableModel = new DefaultTableModel(new Object[]{"ID", "Question", "Answer"}, 0);
+        questionTable = new JTable(tableModel);
+        questionTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        questionTable.getSelectionModel().addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
-                Question<Object> selectedQuestion = questionList.getSelectedValue();
-                if (selectedQuestion != null) {
-                    questionText.setText(selectedQuestion.getText());
+                int selectedRow = questionTable.getSelectedRow();
+                if (selectedRow != -1) {
+                    questionTextField.setText((String) tableModel.getValueAt(selectedRow, 1));
+                    answerTextField.setText((String) tableModel.getValueAt(selectedRow, 2));
                 }
             }
         });
 
-        JScrollPane listScrollPane = new JScrollPane(questionList);
-        add(listScrollPane, BorderLayout.WEST);
+        JScrollPane tableScrollPane = new JScrollPane(questionTable);
+        add(tableScrollPane, BorderLayout.WEST);
 
-        questionText = new JTextArea();
-        JScrollPane textScrollPane = new JScrollPane(questionText);
-        add(textScrollPane, BorderLayout.CENTER);
+        JPanel inputPanel = new JPanel(new GridLayout(3, 2));
+        inputPanel.add(new JLabel("Question:"));
+        inputPanel.add(questionTextField);
 
-        saveButton = new JButton("Save");
+        inputPanel.add(new JLabel("Answer:"));
+        inputPanel.add(answerTextField);
+
         saveButton.addActionListener(e -> {
-            Question<Object> selectedQuestion = questionList.getSelectedValue();
-            if (selectedQuestion != null) {
-                selectedQuestion.setText(questionText.getText());
-                controller.updateQuestion(selectedQuestion);
+            int selectedRow = questionTable.getSelectedRow();
+            if (selectedRow != -1) {
+                int id = (int) tableModel.getValueAt(selectedRow, 0);
+                String questionText = questionTextField.getText();
+                String answerText = answerTextField.getText();
+                Question<Object> question = new Question<>(id, questionText, answerText, Object.class);
+                controller.updateQuestion(question);
             }
         });
 
-        topPanel = controller.topPanel();
+        inputPanel.add(saveButton);
+        add(inputPanel, BorderLayout.CENTER);
+
         add(topPanel, BorderLayout.NORTH);
-        add(saveButton, BorderLayout.SOUTH);
         setVisible(true);
     }
 
-    public void setQuestions(List<Question<Object>> questions) {
-        listModel.clear();
-        for (Question<Object> question : questions) {
-            listModel.addElement(question);
+    public void setQuestions(List<Question<?>> questions) {
+        tableModel.setRowCount(0);
+        for (Question<?> question : questions) {
+            tableModel.addRow(new Object[]{question.getId(), question.getText(), question.getAnswers()});
         }
     }
 }

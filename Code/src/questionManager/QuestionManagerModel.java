@@ -1,4 +1,5 @@
 package questionManager;
+
 import database.DatabaseManager;
 import shared.Classes;
 import shared.Question;
@@ -12,8 +13,8 @@ public class QuestionManagerModel {
         this.dbController = new DatabaseManager<>(Object.class);
     }
 
-    public List<Question<Object>> getAllQuestions() {
-        Set<Question<Object>> allQuestions = new HashSet<>();
+    public List<Question<?>> getAllQuestions() {
+        Set<Question<?>> allQuestions = new HashSet<>();
         allQuestions.addAll(fetchQuestionsOfType(Classes.STRING));
         allQuestions.addAll(fetchQuestionsOfType(Classes.INTEGER));
         allQuestions.addAll(fetchQuestionsOfType(Classes.DOUBLE));
@@ -23,32 +24,31 @@ public class QuestionManagerModel {
         allQuestions.addAll(fetchQuestionsOfType(Classes.SHORT));
         allQuestions.addAll(fetchQuestionsOfType(Classes.BYTE));
         allQuestions.addAll(fetchQuestionsOfType(Classes.CHARACTER));
-        List<Question<Object>> sortedQuestions = new ArrayList<>(allQuestions);
+        List<Question<?>> sortedQuestions = new ArrayList<>(allQuestions);
         sortedQuestions.sort(Comparator.comparingInt(Question::getId));
         return sortedQuestions;
     }
 
-    private <T> List<Question<Object>> fetchQuestionsOfType(Class<T> type) {
+    private <T> List<Question<?>> fetchQuestionsOfType(Class<T> type) {
         DatabaseManager<T> specificDbController = new DatabaseManager<>(type);
-        List<Question<T>> specificQuestions = specificDbController.getAllQuestions();
-        List<Question<Object>> questions = new ArrayList<>();
-        for (Question<T> question : specificQuestions) {
-            questions.add(new Question<>(question.getId(), question.getText(), (Object) question.getAnswers(), Object.class));
-        }
-        return questions;
+        return new ArrayList<>(specificDbController.getAllQuestions());
     }
 
-    public boolean updateQuestion(Question<Object> question) {
-        List<Question<Object>> allQuestions = getAllQuestions();
-        for (Question<Object> q : allQuestions) {
+    public <T> boolean updateQuestion(Question<?> question) {
+        List<Question<?>> allQuestions = getAllQuestions();
+        for (Question<?> q : allQuestions) {
             if (q.getId() == question.getId()) {
                 q.setText(question.getText());
-                q.setAnswers(question.getAnswers());
+                setQuestionAnswers((Question<T>) q, (T[]) question.getAnswers());
                 dbController.removeQuestion(q.getId());
-                dbController.addQuestion(q);
+                dbController.addQuestion((Question<Object>) q);
                 return true;
             }
         }
         return false;
+    }
+
+    private <T> void setQuestionAnswers(Question<T> question, T[] answers) {
+        question.setAnswers(answers);
     }
 }
