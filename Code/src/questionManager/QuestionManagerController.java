@@ -13,10 +13,9 @@ public class QuestionManagerController {
     private QuestionManagerView view;
 
     public QuestionManagerController(MainMenuControl mainMenu) {
+        this.mainMenu = mainMenu;
         this.model = new QuestionManagerModel();
         this.view = new QuestionManagerView(this);
-        this.mainMenu = mainMenu;
-        loadQuestions();
         view.init();
     }
 
@@ -25,7 +24,7 @@ public class QuestionManagerController {
     }
 
     public void loadQuestions() {
-        List<Question<Object>> questions = model.getAllQuestions();
+        List<Question<?>> questions = model.getAllQuestions();
         view.setQuestions(questions);
     }
 
@@ -40,5 +39,10 @@ public class QuestionManagerController {
 
     public JPanel topPanel(){
         return (new TopBar(this.mainMenu));
+    }
+
+    public void removeQuestion(int id) {
+        model.removeQuestion(id);
+        loadQuestions();
     }
 }

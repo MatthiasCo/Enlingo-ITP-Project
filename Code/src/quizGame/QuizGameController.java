@@ -12,6 +12,7 @@ public class QuizGameController implements ActionListener {
     private QuizGameModel model;
     private QuizGameView view;
     private MainMenuControl mainMenuControl;
+    static int questionCount = 1;
 
     public QuizGameController(MainMenuControl mainMenuControl) {
         this.mainMenuControl = mainMenuControl;
@@ -19,14 +20,26 @@ public class QuizGameController implements ActionListener {
         this.view = new QuizGameView(this);
     }
 
+    public static int getQuestionCount() {
+        return questionCount;
+    }
+
     public void display(boolean b) {
         view.setVisible(b);
     }
 
     public void startQuiz() {
-        model.startQuiz();
-        Question<String> currentQuestion = model.getCurrentQuestion();
-        view.displayQuestion(currentQuestion.getText());
+        if (model.isQuizComplete()) {
+            showCompletionPanel();
+            questionCount = 0;
+            model.resetCounters();
+            model.startQuiz();
+        } else {
+            model.startQuiz();
+            Question<String> currentQuestion = model.getCurrentQuestion();
+            view.displayQuestion(currentQuestion.getText());
+            questionCount++;
+        }
     }
 
     public void checkAnswer(String answer) {
@@ -43,13 +56,45 @@ public class QuizGameController implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
         switch (command) {
+            case "start":
+                view.mainGameView();
+                startQuiz();
+                break;
             case "submit":
                 checkAnswer(view.getAnswerField().getText());
+                break;
+            case "next":
+                startQuiz();
                 break;
         }
     }
 
-    public JPanel topPanel(){
-        return (new TopBar(this.mainMenuControl));
+    public void startWelcome() {
+        view.welcomeView();
+        view.setVisible(true);
+    }
+
+    public JPanel topPanel() {
+        return new TopBar(this.mainMenuControl);
+    }
+
+    private void showCompletionPanel() {
+        JPanel completionPanel = new JPanel();
+        completionPanel.setLayout(new BoxLayout(completionPanel, BoxLayout.Y_AXIS));
+        JLabel messageLabel = new JLabel("Quiz complete! You have answered 10 questions.");
+        JLabel correctLabel = new JLabel("Correct answers: " + model.getCorrectAnswers());
+        JLabel incorrectLabel = new JLabel("Incorrect answers: " + model.getIncorrectAnswers());
+        JLabel percentlabel;
+        try {
+            percentlabel = new JLabel("Quotia: " + 10 * model.getCorrectAnswers() + "%");
+
+        } catch (ArithmeticException e) {
+            percentlabel = new JLabel("Quotia: 0%");
+        }
+        completionPanel.add(messageLabel);
+        completionPanel.add(correctLabel);
+        completionPanel.add(incorrectLabel);
+        completionPanel.add(percentlabel);
+        JOptionPane.showMessageDialog(view, completionPanel, "Quiz Complete", JOptionPane.INFORMATION_MESSAGE);
     }
 }
