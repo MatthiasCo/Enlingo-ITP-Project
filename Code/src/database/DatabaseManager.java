@@ -58,11 +58,10 @@ public class DatabaseManager<T> {
         List<Question<T>> questions = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(fileLocation))) {
             String line;
-            while ((line = reader.readLine()) != null) {
-                int id = 0;
+            for (int id = 1; ((line = reader.readLine()) != null); id++) {
                 String[] parts = line.split(",");
                 if (parts.length == 3) {
-                    if (parts.length > 0 && parts[0] != null) {
+                    if (parts[0] != null) {
                         String trimmed = parts[0].trim();
                         if (trimmed.matches("\\d+")) {  // Check if it's only digits
                             id = Integer.parseInt(trimmed);
