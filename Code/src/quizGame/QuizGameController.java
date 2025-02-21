@@ -43,13 +43,22 @@ public class QuizGameController implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
         switch (command) {
+            case "start":
+                view.mainGameView();
+                startQuiz();
+                break;
             case "submit":
                 checkAnswer(view.getAnswerField().getText());
                 break;
         }
     }
 
-    public JPanel topPanel(){
-        return (new TopBar(this.mainMenuControl));
+    public void startWelcome() {
+        view.welcomeView();
+        view.setVisible(true);
+    }
+
+    public JPanel topPanel() {
+        return new TopBar(this.mainMenuControl);
     }
 }

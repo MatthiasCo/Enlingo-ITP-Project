@@ -1,10 +1,9 @@
 package mainMenu;
 
-import com.formdev.flatlaf.FlatDarkLaf;
-import quizGame.*;
+import quizGame.QuizGameController;
 import shared.TopBar;
-import wordleGame.*;
-import questionManager.*;
+import wordleGame.WordleGameController;
+import questionManager.QuestionManagerController;
 
 import javax.swing.*;
 
@@ -34,8 +33,7 @@ public class MainMenuControl {
     }
 
     public void navigateToQuizGame() {
-        quizGame.display(true);
-        quizGame.startQuiz(); // Ensure startQuiz is called
+        quizGame.startWelcome();
         this.view.setVisible(false);
     }
 
@@ -59,7 +57,7 @@ public class MainMenuControl {
         questionManager.display(false);
     }
 
-    public JPanel topPanel(){
-        return (new TopBar(this));
+    public JPanel topPanel() {
+        return new TopBar(this);
     }
 }
