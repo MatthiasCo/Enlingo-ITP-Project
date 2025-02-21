@@ -57,7 +57,7 @@ public class WordleGameController implements ActionListener {
         }
     }
 
-    public void submit(){
+    protected void submit(){
         if(buttonEnabled){ actionPerformed(new ActionEvent(this, 0, "submit"));}
     }
 
@@ -73,4 +73,3 @@ public class WordleGameController implements ActionListener {
         return (new TopBar(this.mainMenuControl));
     }
 }
-

@@ -182,17 +182,39 @@ public class WordleGameView {
             public void keyReleased(KeyEvent e) {
                 if (Character.isLetter(e.getKeyChar())) {   // Detect if the key pressed is a letter
                     field.setText(field.getText().toUpperCase()); // Convert the letter to uppercase
-                    moveToNextField(row, col); // Move to the next field
+                    moveToNextField(row, col);
                 }
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) { // Detect the Enter key press
                     controller.submit(); // Submit the guess
                     if (row < 5 && getCurrentGuess(row).length()==5) {
-                        inputField[row + 1][0].requestFocus(); // Move to the next row
+                        inputField[row + 1][0].requestFocus();
                     }
                 }
-                if (e.getKeyCode()==KeyEvent.VK_DELETE || e.getKeyCode()==KeyEvent.VK_BACK_SPACE){
+                if (e.getKeyCode() == KeyEvent.VK_LEFT){
                     if (col > 0) {
                         inputField[row][col - 1].requestFocus();
+                    }
+                }
+                if (e.getKeyCode() == KeyEvent.VK_RIGHT){
+                    if (col < 4) {
+                        inputField[row][col + 1].requestFocus();
+                    }
+                }
+            }
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
+                    e.consume(); // Prevent default backspace behavior
+
+                    if (inputField[row][col].getText().isEmpty()) {
+                        // If current field is already empty, move to the previous column and delete its content
+                        if (col > 0) {
+                            inputField[row][col - 1].setText("");
+                            inputField[row][col - 1].requestFocus();
+                        }
+                    } else {
+                        // Just clear the current field
+                        inputField[row][col].setText("");
                     }
                 }
             }
