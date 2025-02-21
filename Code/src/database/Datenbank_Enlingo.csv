@@ -1,14 +1,10 @@
-﻿1,What is the English word for 'Apfel'?,Apple
-2,How many letters are in the word 'Sun'?,3
-3,Is 'Zebra' an animal?,true
-4,What is the first letter of 'Water'?,W
+﻿3,Is 'Zebra' an animal?,true
 5,What is the English word for 'Papier'?,Paper
 6,How many letters are in the word 'Cloud'?,5
 7,Is 'Flower' a plant?,true
 8,What is the first letter of 'Glass'?,G
 9,What is the English word for 'Stuhl'?,Chair
 10,How many letters are in the word 'Tree'?,4
-11,Is 'Phone' a device?,true
 12,What is the first letter of 'Bag'?,B
 13,What is the English word for 'Lampe'?,Lamp; Bulb
 14,How many letters are in the word 'Knife'?,5
@@ -248,3 +244,5 @@
 248, How many letters are in the word 'Wine'?, 4
 249, Is 'Cup' something you drink from?, true
 250, What is the first letter of 'Banana'?, B
+11,Is 'Phone' a device?,[[Ljava.lang.String;@70325e14]
+4,What is the first letter of 'Water'?,[[Ljava.lang.String;@f5cbd73]
