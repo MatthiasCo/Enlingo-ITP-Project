@@ -1,3 +1,4 @@
+// QuizGameView.java
 package quizGame;
 
 import shared.TopBar;
@@ -20,6 +21,8 @@ public class QuizGameView extends JFrame {
     private JButton startButton;
     private JPanel topPanel;
     private JPanel mainPanel;
+    private JButton nextButton;
+    private JLabel questionCountLabel;
 
     public QuizGameView(QuizGameController controller) {
         this.controller = controller;
@@ -91,25 +94,35 @@ public class QuizGameView extends JFrame {
         questionLabel = new JLabel("Question goes here", SwingConstants.CENTER);
         questionLabel.setFont(new Font("Arial", Font.PLAIN, 20));
 
-        // Answer input field at the bottom
+        // Answer input field, question count, and next button at the bottom
         JPanel centerPanel = new JPanel(new BorderLayout());
         JPanel bottomPanel = new JPanel(new BorderLayout());
         answerField = new JTextField();
         answerField.setFont(new Font("Arial", Font.PLAIN, 18));
-        answerField.setPreferredSize(new Dimension(400, 60));
+        answerField.setPreferredSize(new Dimension(0, 60));
         answerField.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String answer = answerField.getText();
-                if (!answer.equalsIgnoreCase(lastAnswer)) {
                     controller.checkAnswer(answer);
-                    lastAnswer = answer;
-                } else {
-                    showResult("Duplicate answer. Please try again.");
-                }
             }
         });
-        bottomPanel.add(answerField, BorderLayout.CENTER);
+
+        nextButton = new JButton("Next");
+        nextButton.setFont(new Font("Arial", Font.BOLD, 18));
+        nextButton.setActionCommand("next");
+        nextButton.addActionListener(controller);
+
+        questionCountLabel = new JLabel(controller.getQuestionCount() + "/10");
+        questionCountLabel.setFont(new Font("Arial", Font.PLAIN, 18));
+        questionCountLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
+        JPanel inputPanel = new JPanel(new BorderLayout());
+        inputPanel.add(questionCountLabel, BorderLayout.WEST);
+        inputPanel.add(answerField, BorderLayout.CENTER);
+        inputPanel.add(nextButton, BorderLayout.EAST);
+
+        bottomPanel.add(inputPanel, BorderLayout.CENTER);
 
         centerPanel.add(questionLabel, BorderLayout.CENTER);
 
@@ -128,6 +141,7 @@ public class QuizGameView extends JFrame {
 
     public void displayQuestion(String question) {
         questionLabel.setText(question);
+        questionCountLabel.setText(controller.getQuestionCount() + "/10");
     }
 
     public void clearAnswerField() {
