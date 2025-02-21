@@ -1,5 +1,6 @@
 package questionManager;
 
+import database.DatabaseManager;
 import mainMenu.MainMenuControl;
 import shared.Question;
 import shared.TopBar;
@@ -44,5 +45,9 @@ public class QuestionManagerController {
     public void removeQuestion(int id) {
         model.removeQuestion(id);
         loadQuestions();
+    }
+
+    public Object getDB() {
+        return new DatabaseManager<>(Object.class);
     }
 }

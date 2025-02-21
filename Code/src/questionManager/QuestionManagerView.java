@@ -2,10 +2,14 @@ package questionManager;
 
 import javax.swing.*;
 import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
+
+import database.DatabaseManager;
 import shared.Question;
 
 public class QuestionManagerView extends JFrame {
@@ -42,20 +46,35 @@ public class QuestionManagerView extends JFrame {
 
         controller.loadQuestions();
         // Add a listener to handle cell updates
-        tableModel.addTableModelListener(e -> {
-            if (e.getType() == TableModelEvent.UPDATE) {
-                int row = e.getFirstRow();
-                int column = e.getColumn();
-                if (column == 3) { // If Answers column is updated
-                     int id = (int) tableModel.getValueAt(row, 0);
-                    String questionText = (String) tableModel.getValueAt(row, 1);
-                    String answersJoined = (String) tableModel.getValueAt(row, 3);
-                    String[] answers = answersJoined.isEmpty() ? new String[0] : answersJoined.split(";");
-                    String answerType = answers.length > 1 ? answers[0].getClass().getSimpleName() + "-array" : answers[0].getClass().getSimpleName();
-                    tableModel.setValueAt(answerType, row, 2);
-                    Question<Object> question = new Question<>(id, questionText, answers, Object.class);
-                    controller.updateQuestion(question);
-                    controller.loadQuestions();
+        tableModel.addTableModelListener(new TableModelListener() {
+            @Override
+            public void tableChanged(TableModelEvent e) {
+                if (e.getType() == TableModelEvent.UPDATE) {
+                    int row = e.getFirstRow();
+                    int column = e.getColumn();
+                    if (column == 1 || column == 3) { // If Question or Answers column is updated
+                        int id = (int) tableModel.getValueAt(row, 0);
+                        String questionText = (String) tableModel.getValueAt(row, 1);
+                        String answersJoined = (String) tableModel.getValueAt(row, 3);
+                        String[] answers = answersJoined.isEmpty() ? new String[0] : answersJoined.split(";");
+
+                        // Cast controller.getDB() to DatabaseManager<Object>
+                        DatabaseManager<Object> dbManager = (DatabaseManager<Object>) controller.getDB();
+
+                        // Determine the type of the answers
+                        Object[] typedAnswers = Arrays.stream(answers)
+                                .map(dbManager::convertToType)
+                                .filter(Objects::nonNull) // Filter out null values
+                                .toArray();
+
+                        // Determine the type of the first answer
+                        Class<?> answerType = typedAnswers.length > 0 ? typedAnswers[0].getClass() : String.class;
+
+                        // Create a new Question object with an array of answers
+                        Question<Object> question = new Question<>(id, questionText, typedAnswers);
+
+                        controller.updateQuestion(question);
+                    }
                 }
             }
         });
