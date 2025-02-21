@@ -86,7 +86,7 @@ public class QuizGameController implements ActionListener {
         JLabel incorrectLabel = new JLabel("Incorrect answers: " + model.getIncorrectAnswers());
         JLabel percentlabel;
         try {
-            percentlabel = new JLabel("Quotia: " + 10 / model.getCorrectAnswers() + "%");
+            percentlabel = new JLabel("Quotia: " + 10 * model.getCorrectAnswers() + "%");
 
         } catch (ArithmeticException e) {
             percentlabel = new JLabel("Quotia: 0%");
