@@ -84,9 +84,17 @@ public class QuizGameController implements ActionListener {
         JLabel messageLabel = new JLabel("Quiz complete! You have answered 10 questions.");
         JLabel correctLabel = new JLabel("Correct answers: " + model.getCorrectAnswers());
         JLabel incorrectLabel = new JLabel("Incorrect answers: " + model.getIncorrectAnswers());
+        JLabel percentlabel;
+        try {
+            percentlabel = new JLabel("Quotia: " + 10 / model.getCorrectAnswers() + "%");
+
+        } catch (ArithmeticException e) {
+            percentlabel = new JLabel("Quotia: 0%");
+        }
         completionPanel.add(messageLabel);
         completionPanel.add(correctLabel);
         completionPanel.add(incorrectLabel);
+        completionPanel.add(percentlabel);
         JOptionPane.showMessageDialog(view, completionPanel, "Quiz Complete", JOptionPane.INFORMATION_MESSAGE);
     }
 }

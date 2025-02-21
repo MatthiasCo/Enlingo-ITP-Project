@@ -35,7 +35,7 @@ public class QuizGameModel {
 
     public boolean checkAnswer(String answer) {
         answer = answer.toLowerCase();
-        if(answer.equals("ja") || answer.equals("richtig") || answer.equals("wahr") || answer.equals("korrekt") || answer.equals("yes") ){
+        if(answer.equals("ja") || answer.equals("richtig") || answer.equals("wahr") || answer.equals("korrekt") || answer.equals("yes") || answer.equals("yea") || answer.equals("yez") || answer.equals("ye") || answer.equals("yep") || answer.equals("uhuh")){
             answer = "true";
         } else if(answer.equals("nein") || answer.equals("falsch") || answer.equals("unkorrekt") || answer.equals("no")){
             answer = "false";

@@ -16,7 +16,6 @@ public class QuestionManagerController {
         this.mainMenu = mainMenu;
         this.model = new QuestionManagerModel();
         this.view = new QuestionManagerView(this);
-        loadQuestions();
         view.init();
     }
 
