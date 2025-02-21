@@ -65,7 +65,7 @@ public class DatabaseManager<T> {
                     int id = 0;
                     try {
                         id = Integer.parseInt(parts[0].trim());
-                    }catch(NumberFormatException _){}
+                    }catch(NumberFormatException e){}
                     String text = parts[1].trim();
                     String[] answers = parts[2].trim().replace("[", "").replace("]", "").split(";");
                     T convertedAnswer = convertToType(answers[0].trim());
