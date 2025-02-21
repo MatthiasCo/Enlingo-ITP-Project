@@ -55,6 +55,7 @@ public class QuestionManagerView extends JFrame {
                     tableModel.setValueAt(answerType, row, 2);
                     Question<Object> question = new Question<>(id, questionText, answers, Object.class);
                     controller.updateQuestion(question);
+                    controller.loadQuestions();
                 }
             }
         });

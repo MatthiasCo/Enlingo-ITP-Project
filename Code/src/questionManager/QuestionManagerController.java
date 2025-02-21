@@ -28,7 +28,7 @@ public class QuestionManagerController {
         view.setQuestions(questions);
     }
 
-    public void updateQuestion(Question<Object> question) {
+    public void updateQuestion(Question<?> question) {
         model.updateQuestion(question);
         loadQuestions();
     }
