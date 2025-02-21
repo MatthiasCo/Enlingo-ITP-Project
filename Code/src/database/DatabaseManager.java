@@ -8,7 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class DatabaseManager<T> {
-    private static String fileLocation = "src/database/Datenbank_Enlingo.csv";
+    private static final String fileLocation = "src/database/Datenbank_Enlingo.csv";
     private final Class<T> type;
 
     public DatabaseManager(Class<T> type) {
