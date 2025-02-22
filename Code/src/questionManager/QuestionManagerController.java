@@ -10,13 +10,14 @@ import java.util.List;
 
 /**
  * Enlingo: QuestionManager Module (Matthias) - Controller
+ *
  * @author Matthias Pagler
  * @version 1.0
  */
 public class QuestionManagerController {
-    private MainMenuControl mainMenu;
-    private QuestionManagerModel model;
-    private QuestionManagerView view;
+    private final MainMenuControl mainMenu;
+    private final QuestionManagerModel model;
+    private final QuestionManagerView view;
 
     public QuestionManagerController(MainMenuControl mainMenu) {
         this.mainMenu = mainMenu;
@@ -39,7 +40,7 @@ public class QuestionManagerController {
         loadQuestions();
     }
 
-    public JPanel topPanel(){
+    public JPanel topPanel() {
         return (new TopBar(this.mainMenu));
     }
 

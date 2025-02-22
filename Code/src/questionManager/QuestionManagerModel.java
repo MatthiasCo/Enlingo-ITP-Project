@@ -8,11 +8,12 @@ import java.util.*;
 
 /**
  * Enlingo: QuestionManager Module (Matthias) - Model
+ *
  * @author Matthias Pagler
  * @version 1.0
  */
 public class QuestionManagerModel {
-    private DatabaseManager<Object> dbController;
+    private final DatabaseManager<Object> dbController;
 
     public QuestionManagerModel() {
         this.dbController = new DatabaseManager<>(Object.class);

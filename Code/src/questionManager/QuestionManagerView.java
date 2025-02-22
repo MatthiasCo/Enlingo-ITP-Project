@@ -1,5 +1,7 @@
 package questionManager;
 
+import shared.Question;
+
 import javax.swing.*;
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableModel;
@@ -10,20 +12,19 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-import shared.Question;
-
 /**
  * Enlingo: QuestionManager Module (Matthias) - View
+ *
  * @author Matthias Pagler
  * @version 1.0
  */
 public class QuestionManagerView extends JFrame {
+    private final QuestionManagerController controller;
     private JTable questionTable;
     private DefaultTableModel tableModel;
     private JButton removeButton;
     private JButton addButton;
     private JPanel topPanel;
-    private QuestionManagerController controller;
 
     public QuestionManagerView(QuestionManagerController controller) {
         this.controller = controller;
@@ -55,16 +56,13 @@ public class QuestionManagerView extends JFrame {
                 int row = e.getFirstRow();
                 int column = e.getColumn();
                 if (column == 1 || column == 3) {
-                    int id = (int) tableModel.getValueAt(row, 0);
-                    String questionText = (String) tableModel.getValueAt(row, 1);
-                    String answersJoined = (String) tableModel.getValueAt(row, 3);
+                    int id = (int)tableModel.getValueAt(row, 0);
+                    String questionText = (String)tableModel.getValueAt(row, 1);
+                    String answersJoined = (String)tableModel.getValueAt(row, 3);
                     String[] answers = answersJoined.isEmpty() ? new String[0] : answersJoined.split(",\\s*");
 
-                    String[] typedAnswers = Arrays.stream(answers)
-                            .filter(Objects::nonNull)
-                            .filter(answer -> !answer.isEmpty())
-                            .map(String::trim)
-                            .toArray(String[]::new);
+                    String[] typedAnswers =
+                            Arrays.stream(answers).filter(Objects::nonNull).filter(answer -> !answer.isEmpty()).map(String::trim).toArray(String[]::new);
 
                     ArrayList<Object> fixedAnswers = new ArrayList<>();
                     for (String answer : typedAnswers) {
@@ -78,15 +76,17 @@ public class QuestionManagerView extends JFrame {
                     }
 
                     if (fixedAnswers.size() > 1 && fixedAnswers.stream().anyMatch(answer -> answer instanceof Boolean)) {
-                        JOptionPane.showMessageDialog(null, "You can't have multiple answers with a boolean.", "Error", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "You can't have multiple answers with a boolean.", "Error"
+                                , JOptionPane.ERROR_MESSAGE);
                         controller.loadQuestions();
                         return;
                     }
-                    if(fixedAnswers.size() > 1) {
+                    if (fixedAnswers.size() > 1) {
                         Class<?> type = fixedAnswers.getFirst().getClass();
                         for (Object answer : fixedAnswers) {
                             if (!type.equals(answer.getClass())) {
-                                JOptionPane.showMessageDialog(this, "All answers must be of the same type.", "Error", JOptionPane.ERROR_MESSAGE);
+                                JOptionPane.showMessageDialog(this, "All answers must be of the same type.", "Error",
+                                        JOptionPane.ERROR_MESSAGE);
                                 controller.loadQuestions();
                                 return;
                             }
@@ -110,7 +110,7 @@ public class QuestionManagerView extends JFrame {
             int newId = 0;
             int rowCount = tableModel.getRowCount();
             if (rowCount > 0) {
-                int lastId = (int) tableModel.getValueAt(rowCount - 1, 0);
+                int lastId = (int)tableModel.getValueAt(rowCount - 1, 0);
                 newId = lastId + 1;
             }
             controller.getDB().addQuestion(new Question<>(newId, "New Question", new Object[]{"Answer"}));
@@ -122,8 +122,7 @@ public class QuestionManagerView extends JFrame {
 
             questionTable.editCellAt(newRow, 1);
             Component editor = questionTable.getEditorComponent();
-            if (editor instanceof JTextComponent) {
-                JTextComponent textComponent = (JTextComponent) editor;
+            if (editor instanceof JTextComponent textComponent) {
                 textComponent.requestFocusInWindow();
                 textComponent.selectAll();
             }
@@ -132,7 +131,7 @@ public class QuestionManagerView extends JFrame {
         removeButton.addActionListener(e -> {
             int selectedRow = questionTable.getSelectedRow();
             if (selectedRow != -1 && selectedRow < tableModel.getRowCount()) {
-                int id = (int) tableModel.getValueAt(selectedRow, 0);
+                int id = (int)tableModel.getValueAt(selectedRow, 0);
                 controller.removeQuestion(id);
                 controller.loadQuestions();
             }
@@ -147,15 +146,13 @@ public class QuestionManagerView extends JFrame {
         tableModel.setRowCount(0);
         for (Question<?> question : questions) {
             String answerType = question.getAnswers().getClass().getComponentType().getSimpleName();
-            if(question.getAnswers()[0].equals("true") || question.getAnswers()[0].equals("false")){
+            if (question.getAnswers()[0].equals("true") || question.getAnswers()[0].equals("false")) {
                 answerType = "Boolean";
             }
             if (question.getAnswers().length > 1) {
                 answerType += "  (Multiple Answers)";
             }
-            String[] answers = Arrays.stream(question.getAnswers())
-                    .map(Object::toString)
-                    .toArray(String[]::new);
+            String[] answers = Arrays.stream(question.getAnswers()).map(Object::toString).toArray(String[]::new);
             String answersJoined = String.join(", ", answers);
             tableModel.addRow(new Object[]{question.getId(), question.getText(), answerType, answersJoined});
         }
