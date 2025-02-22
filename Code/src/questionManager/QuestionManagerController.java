@@ -47,7 +47,7 @@ public class QuestionManagerController {
         loadQuestions();
     }
 
-    public Object getDB() {
+    public DatabaseManager<Object> getDB() {
         return new DatabaseManager<>(Object.class);
     }
 }

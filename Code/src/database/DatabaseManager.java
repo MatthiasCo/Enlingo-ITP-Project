@@ -154,4 +154,39 @@ public class DatabaseManager<T> {
         }
         return null;
     }
+
+    public <V> V convertToSmallest(String value) {
+        Object smallestValue;
+        if (value.length() == 1 && !Character.isDigit(value.charAt(0))) {
+            smallestValue = value.charAt(0);
+        } else {
+            try {
+                smallestValue = Byte.parseByte(value);
+            } catch (NumberFormatException e) {
+                try {
+                    smallestValue = Short.parseShort(value);
+                } catch (NumberFormatException ex) {
+                    try {
+                        smallestValue = Integer.parseInt(value);
+                    } catch (NumberFormatException ex2) {
+                        try {
+                            smallestValue = Long.parseLong(value);
+                        } catch (NumberFormatException ex3) {
+                            try {
+                                smallestValue = Float.parseFloat(value);
+                            } catch (NumberFormatException ex4) {
+                                try {
+                                    smallestValue = Double.parseDouble(value);
+                                } catch (NumberFormatException ex5) {
+                                    smallestValue = value;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        //return the smallest value as the type of the class
+        return (V) smallestValue;
+    }
 }

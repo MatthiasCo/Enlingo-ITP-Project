@@ -5,6 +5,7 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -46,36 +47,43 @@ public class QuestionManagerView extends JFrame {
 
         controller.loadQuestions();
         // Add a listener to handle cell updates
-        tableModel.addTableModelListener(new TableModelListener() {
-            @Override
-            public void tableChanged(TableModelEvent e) {
-                if (e.getType() == TableModelEvent.UPDATE) {
-                    int row = e.getFirstRow();
-                    int column = e.getColumn();
-                    if (column == 1 || column == 3) { // If Question or Answers column is updated
-                        int id = (int) tableModel.getValueAt(row, 0);
-                        String questionText = (String) tableModel.getValueAt(row, 1);
-                        String answersJoined = (String) tableModel.getValueAt(row, 3);
-                        String[] answers = answersJoined.isEmpty() ? new String[0] : answersJoined.split(",\\s*");
+        tableModel.addTableModelListener(e -> {
+            if (e.getType() == TableModelEvent.UPDATE) {
+                int row = e.getFirstRow();
+                int column = e.getColumn();
+                if (column == 1 || column == 3) { // If Question or Answers column is updated
+                    int id = (int) tableModel.getValueAt(row, 0);
+                    String questionText = (String) tableModel.getValueAt(row, 1);
+                    String answersJoined = (String) tableModel.getValueAt(row, 3);
+                    String[] answers = answersJoined.isEmpty() ? new String[0] : answersJoined.split(",\\s*");
 
-                        // Cast controller.getDB() to DatabaseManager<Object>
-                        //DatabaseManager<Object> dbManager = (DatabaseManager<Object>) controller.getDB();
+                    String[] typedAnswers = Arrays.stream(answers)
+                            .filter(Objects::nonNull) // Filter out null values
+                            .filter(answer -> !answer.isEmpty()) // Filter out empty strings`
+                            .map(String::trim)
+                            .toArray(String[]::new);
 
-                        // Determine the type of the answers
-                        Object[] typedAnswers = Arrays.stream(answers)
-                                //.map(dbManager::convertToType)
-                                .filter(Objects::nonNull) // Filter out null values
-                                .filter(answer -> !answer.isEmpty()) // Filter out empty strings
-                                .toArray();
-
-                        // Determine the type of the first answer
-                        //Class<?> answerType = typedAnswers.length > 0 ? typedAnswers[0].getClass() : String.class;
-
-                        // Create a new Question object with an array of answers
-                        Question<Object> question = new Question<>(id, questionText, typedAnswers);
-
-                        controller.updateQuestion(question);
+                    ArrayList<?> fixedAnswers = new ArrayList<>();
+                    for(String answer : typedAnswers){
+                        fixedAnswers.add(controller.getDB().convertToSmallest(answer));
                     }
+                    //check is all answers are of the same type, if not tell user that doesn't work cia joptionpane
+                    if(fixedAnswers.size() > 1) {
+                        Class<?> type = fixedAnswers.getFirst().getClass();
+                        for (Object answer : fixedAnswers) {
+                            if (!type.equals(answer.getClass())) {
+                                JOptionPane.showMessageDialog(this, "All answers must be of the same type", "Error", JOptionPane.ERROR_MESSAGE);
+                                //reload the questions
+                                controller.loadQuestions();
+                                return;
+                            }
+                        }
+                    }
+
+                    // Create a new Question object with an array of answers
+                    Question<Object> question = new Question<>(id, questionText, fixedAnswers.toArray());
+
+                    controller.updateQuestion(question);
                 }
             }
         });
