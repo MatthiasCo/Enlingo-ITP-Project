@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.JTextComponent;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,6 +12,7 @@ import java.util.List;
 import java.util.Objects;
 
 import database.DatabaseManager;
+import shared.Classes;
 import shared.Question;
 
 public class QuestionManagerView extends JFrame {
@@ -106,16 +108,36 @@ public class QuestionManagerView extends JFrame {
         buttonPanel.add(removeButton);
 
         addButton.addActionListener(e -> {
-            int newId = tableModel.getRowCount() + 1; // Generate a new ID
-            tableModel.addRow(new Object[]{newId, "New Question", "String", ""});
+            int newId = 0; // Default ID if the table is empty
+            int rowCount = tableModel.getRowCount();
+            if (rowCount > 0) {
+                int lastId = (int) tableModel.getValueAt(rowCount - 1, 0);
+                newId = lastId + 1;
+            }
+            //tableModel.addRow(new Object[]{newId, "New Question", "String", ""});
+            controller.getDB().addQuestion(new Question<>(newId, "New Question", new Object[]{"Answer"}));
+            controller.loadQuestions();
+
+            // Highlight the new row
+            int newRow = tableModel.getRowCount() - 1;
+            questionTable.setRowSelectionInterval(newRow, newRow);
+            questionTable.scrollRectToVisible(questionTable.getCellRect(newRow, 0, true));
+
+            questionTable.editCellAt(newRow, 1);
+            Component editor = questionTable.getEditorComponent();
+            if (editor instanceof JTextComponent) {
+                JTextComponent textComponent = (JTextComponent) editor;
+                textComponent.requestFocusInWindow();
+                textComponent.selectAll();
+            }
         });
 
         removeButton.addActionListener(e -> {
             int selectedRow = questionTable.getSelectedRow();
-            if (selectedRow != -1) {
+            if (selectedRow != -1 && selectedRow < tableModel.getRowCount()) {
                 int id = (int) tableModel.getValueAt(selectedRow, 0);
                 controller.removeQuestion(id);
-                tableModel.removeRow(selectedRow);
+                controller.loadQuestions();
             }
         });
 
