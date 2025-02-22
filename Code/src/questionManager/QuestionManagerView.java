@@ -63,17 +63,27 @@ public class QuestionManagerView extends JFrame {
                             .map(String::trim)
                             .toArray(String[]::new);
 
-                    ArrayList<?> fixedAnswers = new ArrayList<>();
-                    for(String answer : typedAnswers){
-                        fixedAnswers.add(controller.getDB().convertToSmallest(answer));
+                    ArrayList<Object> fixedAnswers = new ArrayList<>();
+                    for (String answer : typedAnswers) {
+                        Object typedAnswer;
+                        if (answer.equalsIgnoreCase("true") || answer.equalsIgnoreCase("false")) {
+                            typedAnswer = Boolean.parseBoolean(answer);
+                        } else {
+                            typedAnswer = controller.getDB().convertToSmallest(answer);
+                        }
+                        fixedAnswers.add(typedAnswer);
                     }
-                    //check is all answers are of the same type, if not tell user that doesn't work cia joptionpane
+
+                    if (fixedAnswers.size() > 1 && fixedAnswers.stream().anyMatch(answer -> answer instanceof Boolean)) {
+                        JOptionPane.showMessageDialog(null, "You can't have multiple answers with a boolean.", "Error", JOptionPane.ERROR_MESSAGE);
+                        controller.loadQuestions();
+                        return;
+                    }
                     if(fixedAnswers.size() > 1) {
                         Class<?> type = fixedAnswers.getFirst().getClass();
                         for (Object answer : fixedAnswers) {
                             if (!type.equals(answer.getClass())) {
                                 JOptionPane.showMessageDialog(this, "All answers must be of the same type", "Error", JOptionPane.ERROR_MESSAGE);
-                                //reload the questions
                                 controller.loadQuestions();
                                 return;
                             }
@@ -118,8 +128,11 @@ public class QuestionManagerView extends JFrame {
         tableModel.setRowCount(0);
         for (Question<?> question : questions) {
             String answerType = question.getAnswers().getClass().getComponentType().getSimpleName();
+            if(question.getAnswers()[0].equals("true") || question.getAnswers()[0].equals("false")){
+                answerType = "Boolean";
+            }
             if (question.getAnswers().length > 1) {
-                answerType += "\t\t\t(Multiple Answers)";
+                answerType += "  (Multiple Answers)";
             }
             String[] answers = Arrays.stream(question.getAnswers())
                     .map(Object::toString)
