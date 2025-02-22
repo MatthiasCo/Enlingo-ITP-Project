@@ -8,6 +8,11 @@ import shared.TopBar;
 import javax.swing.JPanel;
 import java.util.List;
 
+/**
+ * Enlingo: QuestionManager Module (Matthias) - Controller
+ * @author Matthias Pagler
+ * @version 1.0
+ */
 public class QuestionManagerController {
     private MainMenuControl mainMenu;
     private QuestionManagerModel model;
@@ -32,10 +37,6 @@ public class QuestionManagerController {
     public void updateQuestion(Question<?> question) {
         model.updateQuestion(question);
         loadQuestions();
-    }
-
-    public void display() {
-        view.setVisible(true);
     }
 
     public JPanel topPanel(){
