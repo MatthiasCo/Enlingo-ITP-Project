@@ -49,7 +49,7 @@ public class QuizGameModel {
         return isCorrect;
     }
 
-    public String getCorrectAnswer() {
+    public Object getCorrectAnswer() {
         return currentQuestion != null ? currentQuestion.getAnswers()[0] : null;
     }
 
@@ -64,5 +64,11 @@ public class QuizGameModel {
     public void resetCounters() {
         correctAnswers = 0;
         incorrectAnswers = 0;
+    }
+
+    public String getRandomCompliment(){
+        String[] compliments = {"You are doing great!", "You are learning!", "You are improving!", "Don't stop now!", "Legendary!", "Winner Winner Chicken Dinner!", "Keep grinding!", "Impressive!", "Nice job!"};
+        int random = (int) (Math.random() * compliments.length);
+        return compliments[random];
     }
 }

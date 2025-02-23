@@ -5,6 +5,7 @@ import shared.Question;
 import shared.TopBar;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -30,10 +31,8 @@ public class QuizGameController implements ActionListener {
 
     public void startQuiz() {
         if (model.isQuizComplete()) {
+            resetQuiz();
             showCompletionPanel();
-            questionCount = 0;
-            model.resetCounters();
-            model.startQuiz();
         } else {
             model.startQuiz();
             Question<String> currentQuestion = model.getCurrentQuestion();
@@ -42,11 +41,44 @@ public class QuizGameController implements ActionListener {
         }
     }
 
+    private void resetQuiz() {
+        view.resetView();
+    }
+
+    private void showCompletionPanel() {
+        JPanel completionPanel = new JPanel();
+        completionPanel.setLayout(new BoxLayout(completionPanel, BoxLayout.Y_AXIS));
+        JLabel messageLabel = new JLabel("Quiz complete! You have answered 10 questions.");
+        JLabel correctLabel = new JLabel("Correct answers: " + model.getCorrectAnswers());
+        JLabel incorrectLabel = new JLabel("Incorrect answers: " + model.getIncorrectAnswers());
+        JLabel percentlabel;
+        JLabel complimentLabel = new JLabel(model.getRandomCompliment());
+        try {
+            percentlabel = new JLabel("Quotia: " + 10 * model.getCorrectAnswers() + "%");
+        } catch (ArithmeticException e) {
+            percentlabel = new JLabel("Quotia: 0%");
+        }
+        completionPanel.add(complimentLabel);
+        completionPanel.add(messageLabel);
+        completionPanel.add(correctLabel);
+        completionPanel.add(incorrectLabel);
+        completionPanel.add(percentlabel);
+        JOptionPane.showMessageDialog(view, completionPanel, "Quiz Complete", JOptionPane.INFORMATION_MESSAGE);
+    }
+
     public void checkAnswer(String answer) {
         if (model.checkAnswer(answer)) {
+            view.setQuestionBoolLabelColor(new Color(0, 255, 0));
             view.showResult("Correct!");
         } else {
-            view.showResult("Incorrect. The correct answer is: " + model.getCorrectAnswer());
+            view.setQuestionBoolLabelColor(new Color(255, 0, 0));
+            if(model.getCorrectAnswer().equals("true")) {
+                view.showResult("Incorrect. The correct answer is: Yes!");
+            } else if (model.getCorrectAnswer().equals("false")){
+                view.showResult("Incorrect. The correct answer is: No!");
+            } else {
+                view.showResult("Incorrect. The correct answer is: " + model.getCorrectAnswer());
+            }
         }
         view.clearAnswerField();
         startQuiz();
@@ -58,6 +90,8 @@ public class QuizGameController implements ActionListener {
         switch (command) {
             case "start":
                 view.mainGameView();
+                questionCount = 1;
+                model.resetCounters();
                 startQuiz();
                 break;
             case "submit":
@@ -76,25 +110,5 @@ public class QuizGameController implements ActionListener {
 
     public JPanel topPanel() {
         return new TopBar(this.mainMenuControl);
-    }
-
-    private void showCompletionPanel() {
-        JPanel completionPanel = new JPanel();
-        completionPanel.setLayout(new BoxLayout(completionPanel, BoxLayout.Y_AXIS));
-        JLabel messageLabel = new JLabel("Quiz complete! You have answered 10 questions.");
-        JLabel correctLabel = new JLabel("Correct answers: " + model.getCorrectAnswers());
-        JLabel incorrectLabel = new JLabel("Incorrect answers: " + model.getIncorrectAnswers());
-        JLabel percentlabel;
-        try {
-            percentlabel = new JLabel("Quotia: " + 10 * model.getCorrectAnswers() + "%");
-
-        } catch (ArithmeticException e) {
-            percentlabel = new JLabel("Quotia: 0%");
-        }
-        completionPanel.add(messageLabel);
-        completionPanel.add(correctLabel);
-        completionPanel.add(incorrectLabel);
-        completionPanel.add(percentlabel);
-        JOptionPane.showMessageDialog(view, completionPanel, "Quiz Complete", JOptionPane.INFORMATION_MESSAGE);
     }
 }

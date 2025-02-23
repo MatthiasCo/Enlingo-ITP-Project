@@ -20,7 +20,7 @@ public class QuizGameView extends JFrame {
     private JPanel buttonPanel;
     private JButton startButton;
     private JPanel topPanel;
-    private JPanel mainPanel;
+    private JLabel questionBoolLabel;
     private JButton nextButton;
     private JLabel questionCountLabel;
 
@@ -93,6 +93,9 @@ public class QuizGameView extends JFrame {
         // Question label in the center
         questionLabel = new JLabel("Question goes here", SwingConstants.CENTER);
         questionLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+        questionBoolLabel = new JLabel("", SwingConstants.CENTER);
+        questionBoolLabel.setFont(new Font("Arial", Font.PLAIN, 15));
+        questionBoolLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 85, 0));
 
         // Answer input field, question count, and next button at the bottom
         JPanel centerPanel = new JPanel(new BorderLayout());
@@ -116,6 +119,7 @@ public class QuizGameView extends JFrame {
         questionCountLabel = new JLabel(controller.getQuestionCount() + "/10");
         questionCountLabel.setFont(new Font("Arial", Font.PLAIN, 18));
         questionCountLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        questionCountLabel.setPreferredSize(new Dimension(80, 60));
 
         JPanel inputPanel = new JPanel(new BorderLayout());
         inputPanel.add(questionCountLabel, BorderLayout.WEST);
@@ -125,6 +129,7 @@ public class QuizGameView extends JFrame {
         bottomPanel.add(inputPanel, BorderLayout.CENTER);
 
         centerPanel.add(questionLabel, BorderLayout.CENTER);
+        centerPanel.add(questionBoolLabel, BorderLayout.SOUTH);
 
         nameLabel = new JLabel("Quiz Game", SwingConstants.CENTER);
         nameLabel.setBorder(BorderFactory.createEmptyBorder(30, 0, 0, 0)); // Add padding to nameLabel
@@ -152,7 +157,18 @@ public class QuizGameView extends JFrame {
         return answerField;
     }
 
+    public void resetView() {
+        questionLabel.setText("");
+        answerField.setText("");
+        questionCountLabel.setText("0/10");
+        controller.startWelcome();
+    }
+
     public void showResult(String result) {
-        JOptionPane.showMessageDialog(this, result);
+        questionBoolLabel.setText(result);
+    }
+
+    public void setQuestionBoolLabelColor(Color color) {
+        questionBoolLabel.setForeground(color);
     }
 }
