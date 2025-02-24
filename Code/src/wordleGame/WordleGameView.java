@@ -1,4 +1,5 @@
 package wordleGame;
+import shared.RoundedBorder;
 import shared.TopBar;
 
 import javax.swing.*;
@@ -59,6 +60,9 @@ public class WordleGameView {
         startButton.setActionCommand("start");
         startButton.addActionListener(controller);
 
+        startButton.setBackground(new Color (40,40,40,255));
+        startButton.setBorder(new RoundedBorder(10)); // Add border
+
 
         startButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR)); // Change cursor to hand on hover
 
@@ -67,10 +71,10 @@ public class WordleGameView {
 
         startButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                startButton.setBackground(new Color(85,88,90,255)); // Darken teal on hover
+                startButton.setBackground(new Color(50, 50, 50, 255)); // Darken teal on hover
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                startButton.setBackground(new Color(78,80,82,255)); // Reset to original teal
+                startButton.setBackground(new Color (40,40,40,255));
             }
         });
 
@@ -134,7 +138,19 @@ public class WordleGameView {
         restartButton.setActionCommand("restart");
         restartButton.addActionListener(controller);
         restartButton.setPreferredSize(new Dimension(450, 50));
+        restartButton.setBackground(new Color (40,40,40,255));
+        restartButton.setBorder(new RoundedBorder(10)); // Add border
+
         buttonPanel.add(restartButton);
+
+        restartButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                restartButton.setBackground(new Color(50, 50, 50, 255)); // Darken teal on hover
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                restartButton.setBackground(new Color (40,40,40,255));
+            }
+        });
 
         topPanel = controller.topPanel();
 
