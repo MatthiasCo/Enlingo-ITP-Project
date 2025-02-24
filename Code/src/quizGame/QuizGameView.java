@@ -117,12 +117,14 @@ public class QuizGameView extends JFrame {
         nextButton.setFont(new Font("Arial", Font.BOLD, 18));
         nextButton.setActionCommand("next");
         nextButton.addActionListener(controller);
+        nextButton.setPreferredSize(new Dimension(80, 50));
         nextButton.setBackground(new Color(40, 40, 40, 255));
+        nextButton.setBorder(BorderFactory.createLineBorder(new Color(40, 40, 40, 255), 1));
 
         questionCountLabel = new JLabel(controller.getQuestionCount() + "/10");
         questionCountLabel.setFont(new Font("Arial", Font.PLAIN, 18));
         questionCountLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        questionCountLabel.setPreferredSize(new Dimension(80, 60));
+        questionCountLabel.setPreferredSize(new Dimension(80, 50));
         questionCountLabel.setOpaque(true);
         questionCountLabel.setBackground(new Color(40, 40, 40, 255));
 
