@@ -1,6 +1,7 @@
 package mainMenu;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -50,11 +51,36 @@ public class MainMenuView extends JFrame {
         quizGameLabel = new JLabel(resizedIconQuiz);
         wordleGameLabel = new JLabel(resizedIconWordle);
         questionManagerLabel = new JLabel(resizedIconManager);
+        quizGameLabel.setBackground(new Color(78, 80, 82, 255));
+        wordleGameLabel.setBackground(new Color(78, 80, 82, 255));
+        questionManagerLabel.setBackground(new Color(78, 80, 82, 255));
+
+        // Set background color and border for labels
+        Color backgroundColor = new Color(78, 80, 82, 255);
+        Border thickBorder = BorderFactory.createMatteBorder(3, 3, 3, 3, new Color(85, 88, 90, 255)); // Thicker border
+        Border paddingBorder = BorderFactory.createEmptyBorder(20, 20, 20, 20); // Padding
+        Border compoundBorder = BorderFactory.createCompoundBorder(thickBorder, paddingBorder);
+
+
+        quizGameLabel.setOpaque(true);
+        quizGameLabel.setBackground(backgroundColor);
+        quizGameLabel.setBorder(compoundBorder);
+
+        wordleGameLabel.setOpaque(true);
+        wordleGameLabel.setBackground(backgroundColor);
+        wordleGameLabel.setBorder(compoundBorder);
+
+        questionManagerLabel.setOpaque(true);
+        questionManagerLabel.setBackground(backgroundColor);
+        questionManagerLabel.setBorder(compoundBorder);
 
         // Create text placeholders
         quizGameText = new JLabel("Quiz Game", SwingConstants.CENTER);
         wordleGameText = new JLabel("Wordle Game", SwingConstants.CENTER);
         questionManagerText = new JLabel("Question Manager", SwingConstants.CENTER);
+        quizGameText.setFont(new Font("Arial", Font.BOLD, 24));
+        wordleGameText.setFont(new Font("Arial", Font.BOLD, 24));
+        questionManagerText.setFont(new Font("Arial", Font.BOLD, 24));
 
         // Add text and image labels to the center panel
         gbc.gridy = 0;
