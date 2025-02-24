@@ -1,5 +1,7 @@
 package mainMenu;
 
+import shared.RoundedBorder;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
@@ -57,9 +59,7 @@ public class MainMenuView extends JFrame {
 
         // Set background color and border for labels
         Color backgroundColor = new Color(40, 40, 40, 255);
-        Border thickBorder = BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(255,255,255,150)); // Thicker border
-        Border paddingBorder = BorderFactory.createEmptyBorder(20, 20, 20, 20); // Padding
-        Border compoundBorder = BorderFactory.createCompoundBorder(thickBorder, paddingBorder);
+        Border compoundBorder = new RoundedBorder(10);
 
 
         quizGameLabel.setOpaque(true);
