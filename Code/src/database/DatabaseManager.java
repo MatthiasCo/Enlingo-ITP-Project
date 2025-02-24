@@ -1,12 +1,15 @@
 package database;
 
 import shared.Question;
+
 import java.io.*;
-import java.util.*;
+import java.lang.reflect.Array;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class DatabaseManager<T> {
     private static final String fileLocation = "src/database/Datenbank_Enlingo.csv";
@@ -29,8 +32,8 @@ public class DatabaseManager<T> {
         File inputFile = new File(fileLocation);
         File tempFile = new File("src/database/tempFile.csv");
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(inputFile));
-             BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(inputFile)); BufferedWriter writer =
+                new BufferedWriter(new FileWriter(tempFile))) {
             String line = reader.readLine(); // Read and write the header line
             if (line != null) {
                 writer.write(line);
@@ -72,16 +75,17 @@ public class DatabaseManager<T> {
                     int id = 0;
                     try {
                         id = Integer.parseInt(parts[0].trim());
-                    }catch(NumberFormatException _){}
+                    } catch (NumberFormatException _) {
+                    }
                     String text = parts[1].trim();
                     String[] answers = parts[2].trim().replace("[", "").replace("]", "").split(";");
                     T convertedAnswer = convertToType(answers[0].trim());
                     if (type.isInstance(convertedAnswer)) {
-                        if(answers.length == 1) {
+                        if (answers.length == 1) {
                             questions.add(new Question<>(id, text, convertedAnswer, type));
                         } else {
                             //if multiple answers then use the other contructor
-                            T[] convertedAnswers = (T[]) Array.newInstance(type, answers.length);
+                            T[] convertedAnswers = (T[])Array.newInstance(type, answers.length);
                             for (int i = 0; i < answers.length; i++) {
                                 convertedAnswers[i] = convertToType(answers[i].trim());
                             }
@@ -123,25 +127,29 @@ public class DatabaseManager<T> {
         if (value.length() == 1 && !Character.isDigit(value.charAt(0))) {
             smallestValue = value.charAt(0);
         } else {
-            try {
-                smallestValue = Byte.parseByte(value);
-            } catch (NumberFormatException e) {
+            if (value.equalsIgnoreCase("true") || value.equalsIgnoreCase("false")) {
+                smallestValue = Boolean.parseBoolean(value);
+            } else {
                 try {
-                    smallestValue = Short.parseShort(value);
-                } catch (NumberFormatException ex) {
+                    smallestValue = Byte.parseByte(value);
+                } catch (NumberFormatException e) {
                     try {
-                        smallestValue = Integer.parseInt(value);
-                    } catch (NumberFormatException ex2) {
+                        smallestValue = Short.parseShort(value);
+                    } catch (NumberFormatException ex) {
                         try {
-                            smallestValue = Long.parseLong(value);
-                        } catch (NumberFormatException ex3) {
+                            smallestValue = Integer.parseInt(value);
+                        } catch (NumberFormatException ex2) {
                             try {
-                                smallestValue = Float.parseFloat(value);
-                            } catch (NumberFormatException ex4) {
+                                smallestValue = Long.parseLong(value);
+                            } catch (NumberFormatException ex3) {
                                 try {
-                                    smallestValue = Double.parseDouble(value);
-                                } catch (NumberFormatException ex5) {
-                                    smallestValue = value;
+                                    smallestValue = Float.parseFloat(value);
+                                } catch (NumberFormatException ex4) {
+                                    try {
+                                        smallestValue = Double.parseDouble(value);
+                                    } catch (NumberFormatException ex5) {
+                                        smallestValue = value;
+                                    }
                                 }
                             }
                         }
@@ -151,6 +159,9 @@ public class DatabaseManager<T> {
         }
         if (smallestValue.getClass().equals(type)) {
             return type.cast(smallestValue);
+        }
+        if (type.equals(Object.class)) {
+            return (T)smallestValue;
         }
         return null;
     }
@@ -187,6 +198,6 @@ public class DatabaseManager<T> {
             }
         }
         //return the smallest value as the type of the class
-        return (V) smallestValue;
+        return (V)smallestValue;
     }
 }

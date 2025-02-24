@@ -1,21 +1,21 @@
 package quizGame;
 
 import database.DatabaseManager;
-import shared.Classes;
 import shared.Question;
 
 public class QuizGameModel {
-    private DatabaseManager databaseManager;
-    private Question<String> currentQuestion;
-    private Question<String> lastQuestion;
+    private final DatabaseManager databaseManager;
+    private Question<?> currentQuestion;
+    private Question<?> lastQuestion;
     private int correctAnswers = 0;
     private int incorrectAnswers = 0;
 
     public QuizGameModel() {
-        this.databaseManager = new DatabaseManager(Classes.STRING);
+        this.databaseManager = new DatabaseManager(Object.class);
+        currentQuestion = databaseManager.getRandomQuestion();
     }
 
-    public Question<String> getCurrentQuestion() {
+    public Question<?> getCurrentQuestion() {
         return currentQuestion;
     }
 
@@ -35,12 +35,22 @@ public class QuizGameModel {
 
     public boolean checkAnswer(String answer) {
         answer = answer.toLowerCase();
-        if(answer.equals("ja") || answer.equals("richtig") || answer.equals("wahr") || answer.equals("korrekt") || answer.equals("yes") || answer.equals("yea") || answer.equals("yez") || answer.equals("ye") || answer.equals("yep") || answer.equals("uhuh")){
+        if (answer.equals("ja") || answer.equals("richtig") || answer.equals("wahr") || answer.equals("korrekt") || answer.equals("yes") || answer.equals("yea") || answer.equals("yez") || answer.equals("ye") || answer.equals("yep") || answer.equals("uhuh")) {
             answer = "true";
-        } else if(answer.equals("nein") || answer.equals("falsch") || answer.equals("unkorrekt") || answer.equals("no")){
+        } else if (answer.equals("nein") || answer.equals("falsch") || answer.equals("unkorrekt") || answer.equals(
+                "no") || answer.equals("nuh uh")) {
             answer = "false";
         }
-        boolean isCorrect = currentQuestion != null && currentQuestion.getAnswers()[0].equalsIgnoreCase(answer);
+        boolean isCorrect = false;
+        if (currentQuestion != null) {
+            for (Object correctAnswer : currentQuestion.getAnswers()) {
+                if (correctAnswer.toString().equalsIgnoreCase(answer)) {
+                    isCorrect = true;
+                    break;
+                }
+            }
+        }
+
         if (isCorrect) {
             correctAnswers++;
         } else {
@@ -66,9 +76,10 @@ public class QuizGameModel {
         incorrectAnswers = 0;
     }
 
-    public String getRandomCompliment(){
-        String[] compliments = {"You are doing great!", "You are learning!", "You are improving!", "Don't stop now!", "Legendary!", "Winner Winner Chicken Dinner!", "Keep grinding!", "Impressive!", "Nice job!"};
-        int random = (int) (Math.random() * compliments.length);
+    public String getRandomCompliment() {
+        String[] compliments = {"You are doing great!", "You are learning!", "You are improving!", "Don't stop now!",
+                "Legendary!", "Winner Winner Chicken Dinner!", "Keep grinding!", "Impressive!", "Nice job!"};
+        int random = (int)(Math.random() * compliments.length);
         return compliments[random];
     }
 }

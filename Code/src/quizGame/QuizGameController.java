@@ -4,16 +4,19 @@ import mainMenu.MainMenuControl;
 import shared.Question;
 import shared.TopBar;
 
-import javax.swing.*;
+import javax.swing.BoxLayout;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class QuizGameController implements ActionListener {
-    private QuizGameModel model;
-    private QuizGameView view;
-    private MainMenuControl mainMenuControl;
     static int questionCount = 1;
+    private final QuizGameModel model;
+    private final QuizGameView view;
+    private final MainMenuControl mainMenuControl;
 
     public QuizGameController(MainMenuControl mainMenuControl) {
         this.mainMenuControl = mainMenuControl;
@@ -35,7 +38,7 @@ public class QuizGameController implements ActionListener {
             showCompletionPanel();
         } else {
             model.startQuiz();
-            Question<String> currentQuestion = model.getCurrentQuestion();
+            Question<?> currentQuestion = model.getCurrentQuestion();
             view.displayQuestion(currentQuestion.getText());
             questionCount++;
         }
@@ -72,9 +75,9 @@ public class QuizGameController implements ActionListener {
             view.showResult("Correct!");
         } else {
             view.setQuestionBoolLabelColor(new Color(255, 0, 0));
-            if(model.getCorrectAnswer().equals("true")) {
+            if (model.getCorrectAnswer().equals("true")) {
                 view.showResult("Incorrect. The correct answer is: Yes!");
-            } else if (model.getCorrectAnswer().equals("false")){
+            } else if (model.getCorrectAnswer().equals("false")) {
                 view.showResult("Incorrect. The correct answer is: No!");
             } else {
                 view.showResult("Incorrect. The correct answer is: " + model.getCorrectAnswer());
