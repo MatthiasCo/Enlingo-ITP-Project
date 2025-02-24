@@ -95,7 +95,6 @@ public class QuizGameView extends JFrame {
         questionLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         questionBoolLabel = new JLabel("", SwingConstants.CENTER);
         questionBoolLabel.setFont(new Font("Arial", Font.PLAIN, 15));
-        questionBoolLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 85, 0));
 
         // Answer input field, question count, and next button at the bottom
         JPanel centerPanel = new JPanel(new BorderLayout());
@@ -120,6 +119,9 @@ public class QuizGameView extends JFrame {
         questionCountLabel.setFont(new Font("Arial", Font.PLAIN, 18));
         questionCountLabel.setHorizontalAlignment(SwingConstants.CENTER);
         questionCountLabel.setPreferredSize(new Dimension(80, 60));
+        questionCountLabel.setOpaque(true);
+        questionCountLabel.setBackground(new Color(78, 80, 82, 255));
+        questionCountLabel.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
 
         JPanel inputPanel = new JPanel(new BorderLayout());
         inputPanel.add(questionCountLabel, BorderLayout.WEST);

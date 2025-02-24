@@ -27,6 +27,10 @@ public class TopBar extends JPanel implements ActionListener{
             Image scaledImage = originalIcon.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT);
             ImageIcon resizedIcon = new ImageIcon(scaledImage);
 
+            ImageIcon originalIcon2 = new ImageIcon("src/shared/ModeSwitchIcon.png");
+            Image scaledImage2 = originalIcon2.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT);
+            ImageIcon resizedIcon2 = new ImageIcon(scaledImage2);
+
             // Right-aligned home button
             JButton homeButton = new JButton(" HOME", resizedIcon);
             homeButton.addActionListener(this);
@@ -35,8 +39,15 @@ public class TopBar extends JPanel implements ActionListener{
             homeButton.setFocusPainted(false);
             homeButton.setContentAreaFilled(false);
 
+            JButton modeSwitchButton = new JButton(resizedIcon2);
+            modeSwitchButton.addActionListener(this);
+            modeSwitchButton.setActionCommand("mode");
+            modeSwitchButton.setFont(new Font("Arial", Font.BOLD, 14));
+            modeSwitchButton.setFocusPainted(false);
+            modeSwitchButton.setContentAreaFilled(false);
+
             JPanel rightPanel = new JPanel();
-            rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS)); // Vertical layout
+            rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.X_AXIS)); // Vertical layout
             rightPanel.setOpaque(false);
             rightPanel.add(Box.createVerticalGlue());
             rightPanel.add(homeButton);
