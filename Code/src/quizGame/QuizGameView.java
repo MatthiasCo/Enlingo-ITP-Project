@@ -1,6 +1,7 @@
 // QuizGameView.java
 package quizGame;
 
+import shared.RoundedBorder;
 import shared.TopBar;
 
 import javax.swing.*;
@@ -53,6 +54,8 @@ public class QuizGameView extends JFrame {
         startButton.setFont(new Font("Arial", Font.BOLD, 36));
         startButton.setActionCommand("start");
         startButton.addActionListener(controller);
+        startButton.setBackground(new Color (40,40,40,255));
+        startButton.setBorder(new RoundedBorder(10)); // Add border
 
         startButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR)); // Change cursor to hand on hover
 
@@ -60,11 +63,11 @@ public class QuizGameView extends JFrame {
 
         startButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                startButton.setBackground(new Color(85, 88, 90, 255)); // Darken teal on hover
+                startButton.setBackground(new Color(50, 50, 50, 255)); // Darken teal on hover
             }
 
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                startButton.setBackground(new Color(78, 80, 82, 255)); // Reset to original teal
+                startButton.setBackground(new Color(40, 40, 40, 255)); // Reset to original teal
             }
         });
 

@@ -56,8 +56,8 @@ public class MainMenuView extends JFrame {
         questionManagerLabel.setBackground(new Color(78, 80, 82, 255));
 
         // Set background color and border for labels
-        Color backgroundColor = new Color(78, 80, 82, 255);
-        Border thickBorder = BorderFactory.createMatteBorder(3, 3, 3, 3, new Color(85, 88, 90, 255)); // Thicker border
+        Color backgroundColor = new Color(40, 40, 40, 255);
+        Border thickBorder = BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(255,255,255,150)); // Thicker border
         Border paddingBorder = BorderFactory.createEmptyBorder(20, 20, 20, 20); // Padding
         Border compoundBorder = BorderFactory.createCompoundBorder(thickBorder, paddingBorder);
 
