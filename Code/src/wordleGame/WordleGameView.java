@@ -153,7 +153,7 @@ public class WordleGameView {
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 5; j++) {
                 inputField[i][j].setText("");
-                inputField[i][j].setBackground(new Color(60,63,65,255));
+                inputField[i][j].setBackground(new Color(30,30,30,255));
             }
             for (int j = 0; j < 5; j++) {
                 inputField[i][j].setEditable(false);
@@ -161,7 +161,7 @@ public class WordleGameView {
         }
         for (int j = 0; j < 5; j++) {
             inputField[0][j].setEditable(true);
-            inputField[0][j].setBackground(new Color(70,73,75,255));
+            inputField[0][j].setBackground(new Color(40,40,40,255));
         }
         controller.setButtonEnabled(true);
         statusLabel.setForeground(Color.WHITE);
@@ -263,7 +263,7 @@ public class WordleGameView {
             } else if (colors[i] == 2) {
                 setColor(attempt, i, Color.YELLOW);
             } else {
-                setColor(attempt, i, Color.GRAY);
+                setColor(attempt, i, new Color(40,40,40,255));
             }
         }
     }
@@ -277,7 +277,7 @@ public class WordleGameView {
         if (attempt < 5) {
             for (int j = 0; j < 5; j++) {
                 inputField[attempt + 1][j].setEditable(true);
-                inputField[attempt+1][j].setBackground(new Color(70,73,75,255));
+                inputField[attempt+1][j].setBackground(new Color(40,40,40,255));
 
             }
         }
