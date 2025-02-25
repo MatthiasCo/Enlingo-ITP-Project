@@ -175,6 +175,10 @@ public class QuizGameView extends JFrame {
         questionBoolLabel.setText(result);
     }
 
+    public void questionBoolLabelHide () {
+        this.questionBoolLabel.setText("");
+    }
+
     public void setQuestionBoolLabelColor(Color color) {
         questionBoolLabel.setForeground(color);
     }

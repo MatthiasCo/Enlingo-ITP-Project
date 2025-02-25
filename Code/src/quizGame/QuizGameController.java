@@ -102,6 +102,7 @@ public class QuizGameController implements ActionListener {
                 break;
             case "next":
                 view.clearAnswerField();
+                view.questionBoolLabelHide();
                 startQuiz();
                 break;
         }
