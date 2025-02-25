@@ -113,7 +113,7 @@ public class QuizGameView extends JFrame {
             }
         });
 
-        nextButton = new JButton("Next");
+        nextButton = new JButton("Skip");
         nextButton.setFont(new Font("Arial", Font.BOLD, 18));
         nextButton.setActionCommand("next");
         nextButton.addActionListener(controller);
